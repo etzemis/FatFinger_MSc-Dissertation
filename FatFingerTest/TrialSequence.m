@@ -92,6 +92,7 @@
         int r = arc4random()%[self.trialSequence count];
         
         TrialInfo *trial = [self.trialSequence objectAtIndex:r];
+        // We should check if it is right  that way!!
         trial.trialID = [NSNumber numberWithInt:i+1];
         [self.trialWarmUpSequence addObject:trial];
     }
