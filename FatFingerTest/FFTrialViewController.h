@@ -12,6 +12,7 @@
 
 @interface FFTrialViewController : UIViewController
 @property (nonatomic, strong) User *user;
+// We get it from Warm UP
 @property (nonatomic, strong) TrialSequence *trialSequence;
 
 @end
