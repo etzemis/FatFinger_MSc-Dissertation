@@ -17,8 +17,12 @@
 
 //Target Depedent
 @property (nonatomic, strong) NSNumber *rangeOfTarget;  //N depedent
+
 @property (nonatomic, strong) NSNumber *startOfTargetRegion;
+@property (nonatomic, strong) NSNumber *startOfTargetRegionInRad;
+
 @property (nonatomic, strong) NSNumber *endOfTargetRegion;
+@property (nonatomic, strong) NSNumber *endOfTargetRegionInRad;
 
 @property (nonatomic, strong) NSNumber *lastIndexPosition;
 @property (nonatomic, strong) NSNumber *lastIndexPositionInRad;
@@ -41,14 +45,18 @@
 //No Feedback Trial Additional Types
 @property (nonatomic, strong) NSMutableArray *NFPastIndexes;  //of NSNumber (float)
 @property (nonatomic) BOOL NFShowFinalSelectedRangeAfterComplitingNFTrial;
+@property (nonatomic) BOOL NFWaitingForUserTapScreenToConfirmFeedBackWasSeen;
 @property (nonatomic, strong) NSNumber *NFFinalIndexToShow;
+
+//Last Trials info
+@property (nonatomic, strong) TrialInfo *lastTrialInfo;
 
 
 #define TIMES_TO_DIVIDE_EACH_CONCRETE_TARGET 100 //Each target is idvided in those segments and one is chosen randomly
-#define OFFSET_FOR_CONTINUOUS_TARGET 0.01      // How easy is to hit the continuous target
+#define OFFSET_FOR_CONTINUOUS_TARGET 0.015      // How easy is to hit the continuous target
 
 #define DELAY_UNTIL_CONFIRMING_SELECTION_WITH_FEEDBACK 1
-#define DELAY_UNTIL_CONFIRMING_SELECTION_WITHOUT_FEEDBACK 0.5
+//#define DELAY_UNTIL_CONFIRMING_SELECTION_WITHOUT_FEEDBACK 0.5
 @end
 
 
@@ -60,98 +68,116 @@
 #pragma mark - Touch Events
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    if( self.shouldResetParametersInFirstTouch) {        //Reset Parameters in very first Touch
-        self.shouldResetParametersInFirstTouch = NO;
+    if(self.NFWaitingForUserTapScreenToConfirmFeedBackWasSeen){       // I set it back to NO only when we start the new trial----To Reject rest of input
+        //Reject new Events
+        self.userInteractionEnabled = NO;
         
-        self.startTimeOfTrial = [NSDate date];
-        self.targetReentries = 0;
-        self.reTouches = 0;
-        self.timesWentOutside = @0;
-        //No FeedBack
+        // Notify that last Trial Ended
+        NSDictionary *userInfo =@{ TrialComplitedNotificationResult: self.lastTrialInfo};
+        [[NSNotificationCenter defaultCenter] postNotificationName:TrialComplitedNotification
+                                                            object:self
+                                                          userInfo:userInfo];
         self.NFShowFinalSelectedRangeAfterComplitingNFTrial = NO;
     }
-    
-    NSArray *touch = [touches allObjects];
-    UITouch *index = [touch firstObject];
-    self.lastIndexPosition = [index valueForKey:@"_pathMajorRadius"];
-    //NSLog(@"%.2f", [indexval floatValue]);
-    NSNumber *pr = @( ([self.lastIndexPosition floatValue] - [_min floatValue])/ ([_max floatValue]-[_min floatValue]));
-    self.lastIndexPositionInRad = @([pr floatValue]*360);
-    
-    if (self.hasFeedback) {
-        if ([self isInsideTarget:self.lastIndexPosition] && !self.isInsideTarget) {
-            //NSLog(@"We Went IN");
-            self.isInsideTarget = YES;
-            [NSTimer scheduledTimerWithTimeInterval:DELAY_UNTIL_CONFIRMING_SELECTION_WITH_FEEDBACK
-                                             target:self
-                                           selector:@selector(checkIfStillInsideTarget:)
-                                           userInfo:nil
-                                            repeats:NO];
+    else{
+        if( self.shouldResetParametersInFirstTouch) {        //Reset Parameters in very first Touch
+            self.shouldResetParametersInFirstTouch = NO;
+            
+            self.startTimeOfTrial = [NSDate date];
+            self.targetReentries = 0;
+            self.reTouches = 0;
+            self.timesWentOutside = @0;
+            //No FeedBack
+            self.NFShowFinalSelectedRangeAfterComplitingNFTrial = NO;
         }
-    }
-    else if (!self.hasFeedback) {
-        [self.NFPastIndexes addObject:self.lastIndexPosition];
-        NSLog(@"Index With size inserted %@", self.lastIndexPosition);
-        if ([self isInsideTarget:self.lastIndexPosition] && !self.isInsideTarget) self.isInsideTarget = YES;
+        
+        NSArray *touch = [touches allObjects];
+        UITouch *index = [touch firstObject];
+        self.lastIndexPosition = [index valueForKey:@"_pathMajorRadius"];
+        //NSLog(@"%.2f", [indexval floatValue]);
+        NSNumber *pr = @( ([self.lastIndexPosition floatValue] - [_min floatValue])/ ([_max floatValue]-[_min floatValue]));
+        self.lastIndexPositionInRad = @([pr floatValue]*360);
+        
+        if (self.hasFeedback) {
+            if ([self isInsideTarget:self.lastIndexPosition] && !self.isInsideTarget) {
+                //NSLog(@"We Went IN");
+                self.isInsideTarget = YES;
+                [NSTimer scheduledTimerWithTimeInterval:DELAY_UNTIL_CONFIRMING_SELECTION_WITH_FEEDBACK
+                                                 target:self
+                                               selector:@selector(checkIfStillInsideTarget:)
+                                               userInfo:nil
+                                                repeats:NO];
+            }
+        }
+        else if (!self.hasFeedback) {
+            [self.NFPastIndexes addObject:self.lastIndexPosition];
+            NSLog(@"Index With size inserted %@", self.lastIndexPosition);
+            if ([self isInsideTarget:self.lastIndexPosition] && !self.isInsideTarget) self.isInsideTarget = YES;
+        }
     }
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-
-    NSArray *touch = [touches allObjects];
-    UITouch *index = [touch firstObject];
-    self.lastIndexPosition = [index valueForKey:@"_pathMajorRadius"];
-    //NSLog(@"%.2f", [indexval floatValue]);
-    NSNumber *pr = @( ([self.lastIndexPosition floatValue] - [_min floatValue])/ ([_max floatValue]-[_min floatValue]));
-    self.lastIndexPositionInRad = @([pr floatValue]*360);
-    
-    if (self.hasFeedback) {
-        //check if target is beeing hit succesfully
-        if ([self isInsideTarget:self.lastIndexPosition] && !self.isInsideTarget) {
-            //NSLog(@"We Went IN");
-            self.isInsideTarget = YES;
-            [NSTimer scheduledTimerWithTimeInterval:DELAY_UNTIL_CONFIRMING_SELECTION_WITH_FEEDBACK
-                                             target:self
-                                           selector:@selector(checkIfStillInsideTarget:)
-                                           userInfo:nil
-                                            repeats:NO];
-        }
-        else if(![self isInsideTarget:self.lastIndexPosition] && self.isInsideTarget){  // we were inside
-            //NSLog(@"We Went Out");
-            self.isInsideTarget = NO;
-            self.timesWentOutside = @([self.timesWentOutside integerValue]+1);
-            self.targetReentries++;
-        }
-    }
-    else if (!self.hasFeedback) {
-        [self.NFPastIndexes addObject:self.lastIndexPosition];
-        NSLog(@"Index With size inserted %@", self.lastIndexPosition);
+    // if User is Observing The FeedBack Then reject input
+    if(!self.NFWaitingForUserTapScreenToConfirmFeedBackWasSeen){
+        NSArray *touch = [touches allObjects];
+        UITouch *index = [touch firstObject];
+        self.lastIndexPosition = [index valueForKey:@"_pathMajorRadius"];
+        //NSLog(@"%.2f", [indexval floatValue]);
+        NSNumber *pr = @( ([self.lastIndexPosition floatValue] - [_min floatValue])/ ([_max floatValue]-[_min floatValue]));
+        self.lastIndexPositionInRad = @([pr floatValue]*360);
         
-//Count re-Entries in No FeedBack
-        if ([self isInsideTarget:self.lastIndexPosition] && !self.isInsideTarget) {
-            //NSLog(@"We Went IN");
-            self.isInsideTarget = YES;
+        if (self.hasFeedback) {
+            //check if target is beeing hit succesfully
+            if ([self isInsideTarget:self.lastIndexPosition] && !self.isInsideTarget) {
+                //NSLog(@"We Went IN");
+                self.isInsideTarget = YES;
+                [NSTimer scheduledTimerWithTimeInterval:DELAY_UNTIL_CONFIRMING_SELECTION_WITH_FEEDBACK
+                                                 target:self
+                                               selector:@selector(checkIfStillInsideTarget:)
+                                               userInfo:nil
+                                                repeats:NO];
+            }
+            else if(![self isInsideTarget:self.lastIndexPosition] && self.isInsideTarget){  // we were inside
+                //NSLog(@"We Went Out");
+                self.isInsideTarget = NO;
+                self.timesWentOutside = @([self.timesWentOutside integerValue]+1);
+                self.targetReentries++;
+            }
         }
-        else if(![self isInsideTarget:self.lastIndexPosition] && self.isInsideTarget){  // we were inside
-            //NSLog(@"We Went Out");
-            self.isInsideTarget = NO;
-            self.targetReentries++;
+        else if (!self.hasFeedback) {
+            [self.NFPastIndexes addObject:self.lastIndexPosition];
+            NSLog(@"Index With size inserted %@", self.lastIndexPosition);
+            
+            //Count re-Entries in No FeedBack
+            if ([self isInsideTarget:self.lastIndexPosition] && !self.isInsideTarget) {
+                //NSLog(@"We Went IN");
+                self.isInsideTarget = YES;
+            }
+            else if(![self isInsideTarget:self.lastIndexPosition] && self.isInsideTarget){  // we were inside
+                //NSLog(@"We Went Out");
+                self.isInsideTarget = NO;
+                self.targetReentries++;
+            }
+            
         }
-
     }
     
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    if(self.hasFeedback){
-        self.lastIndexPositionInRad = @(0);
-        self.reTouches++;
-        self.isInsideTarget = NO; // when release hand and first target...dont select it
-    }
-    else if (!self.hasFeedback)
-    {
-        self.lastIndexPositionInRad = @(0);
-        [self noFeedBackSelector];
+    // if User is Observing The FeedBack Then reject input
+    if(!self.NFWaitingForUserTapScreenToConfirmFeedBackWasSeen){
+        if(self.hasFeedback){
+            self.lastIndexPositionInRad = @(0);
+            self.reTouches++;
+            self.isInsideTarget = NO; // when release hand and first target...dont select it
+        }
+        else if (!self.hasFeedback)
+        {
+            self.lastIndexPositionInRad = @(0);
+            [self noFeedBackSelector];
+        }
     }
 }
 
@@ -167,25 +193,25 @@
         // Gather all relevant information for this Trial into an Object
         NSTimeInterval totalTimeOfTrial = [self.startTimeOfTrial timeIntervalSinceNow];
         
-        TrialInfo *trialInfo = [[TrialInfo alloc] init];        //ID is filled in superView
-        trialInfo.n = self.N;
-        trialInfo.target = self.target;
-        trialInfo.isDescrete = self.isDescrete;
-        trialInfo.hasFeedback  = self.hasFeedback;
+        self.lastTrialInfo = [[TrialInfo alloc] init];        //ID is filled in superView
+        self.lastTrialInfo.n = self.N;
+        self.lastTrialInfo.target = self.target;
+        self.lastTrialInfo.isDescrete = self.isDescrete;
+        self.lastTrialInfo.hasFeedback  = self.hasFeedback;
         
         
-        trialInfo.totalTime = @(-1*totalTimeOfTrial);
-        trialInfo.reEntries = @(self.targetReentries);
-        trialInfo.reTouches = @(self.reTouches);
+        self.lastTrialInfo.totalTime = @(-1*totalTimeOfTrial);
+        self.lastTrialInfo.reEntries = @(self.targetReentries);
+        self.lastTrialInfo.reTouches = @(self.reTouches);
         
         
         if(!self.isDescrete) {
-            trialInfo.finalOffset = @(([self.lastIndexPosition floatValue] - [self.continuousTarget floatValue]) / ([_max floatValue]-[_min floatValue]));  // percentage of Offset compared to whole range
+            self.lastTrialInfo.finalOffset = @(([self.lastIndexPosition floatValue] - [self.continuousTarget floatValue]) / ([_max floatValue]-[_min floatValue]));  // percentage of Offset compared to whole range
             // <0 if before target and the opposite
-            trialInfo.continuousTargetPosition = self.continuousTarget;
+            self.lastTrialInfo.continuousTargetPosition = self.continuousTarget;
         }
         
-        NSDictionary *userInfo =@{ TrialComplitedNotificationResult: trialInfo };
+        NSDictionary *userInfo =@{ TrialComplitedNotificationResult: self.lastTrialInfo };
         [[NSNotificationCenter defaultCenter] postNotificationName:TrialComplitedNotification
                                                             object:self
                                                           userInfo:userInfo];
@@ -200,8 +226,8 @@
 
 - (void)noFeedBackSelector{
     
-    //Reject new Events
-    self.userInteractionEnabled = NO;
+
+    self.NFWaitingForUserTapScreenToConfirmFeedBackWasSeen = YES;
     
     NSTimeInterval totalTimeOfTrial = [self.startTimeOfTrial timeIntervalSinceNow];
     
@@ -218,28 +244,28 @@
     NSLog(@"Last index is  %@", lastIndexBeforeTouchEnded);
     
 
-    TrialInfo *trialInfo = [[TrialInfo alloc] init];
+    self.lastTrialInfo= [[TrialInfo alloc] init];
     //ID is filled in superView
-    trialInfo.n = self.N;
-    trialInfo.target = self.target;
-    trialInfo.hasFeedback = self.hasFeedback;
-    trialInfo.isDescrete = self.isDescrete;
+    self.lastTrialInfo.n = self.N;
+    self.lastTrialInfo.target = self.target;
+    self.lastTrialInfo.hasFeedback = self.hasFeedback;
+    self.lastTrialInfo.isDescrete = self.isDescrete;
     
-    trialInfo.reTouches = @(self.reTouches);
-    trialInfo.reEntries = @(self.targetReentries);          
-    trialInfo.totalTime = @(-1 * totalTimeOfTrial);
+    self.lastTrialInfo.reTouches = @(self.reTouches);
+    self.lastTrialInfo.reEntries = @(self.targetReentries);
+    self.lastTrialInfo.totalTime = @(-1 * totalTimeOfTrial);
     
     //check if Last position is inside Target
-    trialInfo.hitInsideTarget = @([self isInsideTarget:lastIndexBeforeTouchEnded]);
+    self.lastTrialInfo.hitInsideTarget = @([self isInsideTarget:lastIndexBeforeTouchEnded]);
     if (self.isDescrete) { //NFD
         NSNumber *middleOfTargetRegion = @([self.startOfTargetRegion floatValue] + [self.rangeOfTarget floatValue]/2);
-        trialInfo.finalOffset = @(([lastIndexBeforeTouchEnded floatValue] - [middleOfTargetRegion floatValue]) / ([_max floatValue]-[_min floatValue]));  // percentage of Offset compared to whole range
+        self.lastTrialInfo.finalOffset = @(([lastIndexBeforeTouchEnded floatValue] - [middleOfTargetRegion floatValue]) / ([_max floatValue]-[_min floatValue]));  // percentage of Offset compared to whole range
         // <0 if before target middle and the opposite
     }
     else if(!self.isDescrete){      // NFND
-        trialInfo.finalOffset = @(([lastIndexBeforeTouchEnded floatValue] - [self.continuousTarget floatValue]) / ([_max floatValue]-[_min floatValue]));  // percentage of Offset compared to whole range
+        self.lastTrialInfo.finalOffset = @(([lastIndexBeforeTouchEnded floatValue] - [self.continuousTarget floatValue]) / ([_max floatValue]-[_min floatValue]));  // percentage of Offset compared to whole range
         // <0 if before target and the opposite
-        trialInfo.continuousTargetPosition = self.continuousTarget;
+        self.lastTrialInfo.continuousTargetPosition = self.continuousTarget;
     }
     
     
@@ -252,22 +278,24 @@
     AudioServicesPlaySystemSound(self.successSound);
     
     
-    
-    // wait For a second to Show the animation
-    // and the send the notification to SuperView
-    int64_t delayInSeconds = 1;
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        
-        NSDictionary *userInfo =@{ TrialComplitedNotificationResult: trialInfo };
-        [[NSNotificationCenter defaultCenter] postNotificationName:TrialComplitedNotification
-                                                            object:self
-                                                          userInfo:userInfo];
-        self.NFShowFinalSelectedRangeAfterComplitingNFTrial = NO;
-        
-    });
+/* Uncomment this if you want To Wait for a specific amount of time
+ *instead pf waiting for an extra tap
+ */
+//    // wait For a second to Show the animation
+//    // and the send the notification to SuperView
+//    int64_t delayInSeconds = 1;
+//    
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        
+//        NSDictionary *userInfo =@{ TrialComplitedNotificationResult: trialInfo };
+//        [[NSNotificationCenter defaultCenter] postNotificationName:TrialComplitedNotification
+//                                                            object:self
+//                                                          userInfo:userInfo];
+//        self.NFShowFinalSelectedRangeAfterComplitingNFTrial = NO;
+//        
+//    });
     
 }
 
@@ -294,6 +322,7 @@
 - (void)prepareForTrialWithN:(NSNumber *)N Target:(NSNumber *)target inDescreteMode:(BOOL)isDescrete withFeedback:(BOOL)hasFeedback
 {
     self.isInsideTarget = NO;  // reset it now to prevent color malfunctioning
+    self.NFWaitingForUserTapScreenToConfirmFeedBackWasSeen = NO;
     
     if (isDescrete) {       
         self.N = N;
@@ -326,6 +355,7 @@
         
         self.startOfTargetRegion = @([self.continuousTarget floatValue] - (OFFSET_FOR_CONTINUOUS_TARGET * ([self.max floatValue] - [self.min floatValue])));
         self.endOfTargetRegion = @([self.continuousTarget floatValue] + (OFFSET_FOR_CONTINUOUS_TARGET * ([self.max floatValue] - [self.min floatValue])));
+        
 
         // Calibrate Values
         if ([self.startOfTargetRegion floatValue] < [self.min floatValue]) {
@@ -334,8 +364,7 @@
         if ([self.endOfTargetRegion floatValue] > [self.max floatValue]) {
             self.endOfTargetRegion = self.max;
         }
-        
-        
+
         self.shouldResetParametersInFirstTouch = YES;
         
         [self setNeedsDisplay];
@@ -363,6 +392,24 @@
 {
     if (_continuousTarget) {        //if continuous Target exists
         NSNumber *pr = @( ([_continuousTarget floatValue] - [_min floatValue])/ ([_max floatValue]-[_min floatValue]));
+        return @([pr floatValue]*360);
+    }
+    else return nil;
+}
+
+-(NSNumber *)startOfTargetRegionInRad
+{
+    if (_startOfTargetRegion) {        //if continuous Target exists
+        NSNumber *pr = @( ([_startOfTargetRegion floatValue] - [_min floatValue])/ ([_max floatValue]-[_min floatValue]));
+        return @([pr floatValue]*360);
+    }
+    else return nil;
+}
+
+-(NSNumber *)endOfTargetRegionInRad
+{
+    if (_endOfTargetRegion) {        //if continuous Target exists
+        NSNumber *pr = @( ([_endOfTargetRegion floatValue] - [_min floatValue])/ ([_max floatValue]-[_min floatValue]));
         return @([pr floatValue]*360);
     }
     else return nil;
@@ -412,7 +459,8 @@
             }
             
             //// Draw Circle in the Center
-            [self drawTouchRegionFrame];
+            [self drawTouchRegionCircle];
+            [self drawTouchRegionRectangle];
         }
         
     }
@@ -432,7 +480,7 @@
 
 
 - (void)drawUserFeedbackRegion{ //white
-    CGRect ovalRectForFeedbackRegion = CGRectMake(27.5, 125.5, 721, 721);
+    CGRect ovalRectForFeedbackRegion = CGRectMake(22.5, 15.5, 721, 721);
     UIBezierPath* ovalPathForFeedBackRegion = [UIBezierPath bezierPath];
     [ovalPathForFeedBackRegion addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRectForFeedbackRegion), CGRectGetMidY(ovalRectForFeedbackRegion)) radius: CGRectGetWidth(ovalRectForFeedbackRegion) / 2 startAngle: 0 * M_PI/180 endAngle: 360 * M_PI/180 clockwise: YES];
     [ovalPathForFeedBackRegion addLineToPoint: CGPointMake(CGRectGetMidX(ovalRectForFeedbackRegion), CGRectGetMidY(ovalRectForFeedbackRegion))];
@@ -450,7 +498,7 @@
 {
     UIColor* colorOFUserFeedback = [UIColor colorWithRed: 0.114 green: 0.114 blue: 1 alpha: 1];
     
-    CGRect ovalRectCurrentIndex = CGRectMake(27.5, 125.5, 721, 721);
+    CGRect ovalRectCurrentIndex = CGRectMake(22.5, 15.5, 721, 721);
     UIBezierPath* ovalPathCurrentIndex = [UIBezierPath bezierPath];
     [ovalPathCurrentIndex addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRectCurrentIndex), CGRectGetMidY(ovalRectCurrentIndex)) radius: CGRectGetWidth(ovalRectCurrentIndex) / 2 startAngle: 0 * M_PI/180 endAngle: [self.lastIndexPositionInRad intValue] * M_PI/180 clockwise: YES];
     [ovalPathCurrentIndex addLineToPoint: CGPointMake(CGRectGetMidX(ovalRectCurrentIndex), CGRectGetMidY(ovalRectCurrentIndex))];
@@ -473,7 +521,7 @@
 {
     UIColor* colorOFUserFeedback = [UIColor colorWithRed: 0.114 green: 0.114 blue: 1 alpha: 1];
     
-    CGRect ovalRectCurrentIndex = CGRectMake(27.5, 125.5, 721, 721);
+    CGRect ovalRectCurrentIndex = CGRectMake(22.5, 15.5, 721, 721);
     UIBezierPath* ovalPathCurrentIndex = [UIBezierPath bezierPath];
     [ovalPathCurrentIndex addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRectCurrentIndex), CGRectGetMidY(ovalRectCurrentIndex))
                                     radius: CGRectGetWidth(ovalRectCurrentIndex) / 2
@@ -500,7 +548,7 @@
     UIColor* colorFornInactiveTargets = [UIColor colorWithRed: 0.942 green: 0.942 blue: 0.942 alpha: 1];
     
     for(int i=[self.N intValue]; i>0; i--) {
-        CGRect ovalRectForTargets = CGRectMake(95.5, 193.5, 585, 585);
+        CGRect ovalRectForTargets = CGRectMake(90.5, 83.5, 585, 585);
         UIBezierPath* ovalPathForTargets = [UIBezierPath bezierPath];
         [ovalPathForTargets addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRectForTargets), CGRectGetMidY(ovalRectForTargets))
                                       radius: CGRectGetWidth(ovalRectForTargets) / 2
@@ -531,7 +579,7 @@
 -(void) drawContinuousTarget
 {
     //Draw Targets Region
-    CGRect TargetRegion = CGRectMake(95.5, 193.5, 585, 585);
+    CGRect TargetRegion = CGRectMake(90.5, 83.5, 585, 585);
     UIBezierPath* ovalPathForTargetRegion = [UIBezierPath bezierPath];
     [ovalPathForTargetRegion addArcWithCenter: CGPointMake(CGRectGetMidX(TargetRegion), CGRectGetMidY(TargetRegion))
                                   radius: CGRectGetWidth(TargetRegion) / 2
@@ -549,12 +597,12 @@
     
     //Draw Continuous Target
     
-    CGRect ovalRectForTargets = CGRectMake(95.5, 193.5, 585, 585);
+    CGRect ovalRectForTargets = CGRectMake(90.5, 83.5, 585, 585);
     UIBezierPath* ovalPathForTargets = [UIBezierPath bezierPath];
     [ovalPathForTargets addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRectForTargets), CGRectGetMidY(ovalRectForTargets))
                                   radius: CGRectGetWidth(ovalRectForTargets) / 2
-                              startAngle: [self.continuousTargetInRad integerValue] * M_PI/180
-                                endAngle: [self.continuousTargetInRad integerValue]* M_PI/180
+                              startAngle: [self.continuousTargetInRad floatValue] * M_PI/180
+                                endAngle: [self.continuousTargetInRad floatValue]* M_PI/180
                                clockwise: YES];
     [ovalPathForTargets addLineToPoint: CGPointMake(CGRectGetMidX(ovalRectForTargets), CGRectGetMidY(ovalRectForTargets))];
     [ovalPathForTargets closePath];
@@ -567,12 +615,53 @@
     [[UIColor redColor] setStroke];
     ovalPathForTargets.lineWidth = 3;
     [ovalPathForTargets stroke];
+    
+    [self drawContinuousTargetOffsetIndicators];
+    
+    
+}
+
+-(void) drawContinuousTargetOffsetIndicators
+{
+    
+    // DRAW START
+    CGRect ovalRectForTargets = CGRectMake(90.5, 83.5, 585, 585);
+    UIBezierPath* ovalPathForStartOffset = [UIBezierPath bezierPath];
+    [ovalPathForStartOffset addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRectForTargets), CGRectGetMidY(ovalRectForTargets))
+                                  radius: CGRectGetWidth(ovalRectForTargets) / 2
+                              startAngle: [self.startOfTargetRegionInRad floatValue] * M_PI/180
+                                endAngle: [self.startOfTargetRegionInRad floatValue]* M_PI/180
+                               clockwise: YES];
+    [ovalPathForStartOffset addLineToPoint: CGPointMake(CGRectGetMidX(ovalRectForTargets), CGRectGetMidY(ovalRectForTargets))];
+    [ovalPathForStartOffset closePath];
+
+    [[UIColor yellowColor] setStroke];
+    ovalPathForStartOffset.lineWidth = 2;
+    [ovalPathForStartOffset stroke];
+    
+    
+    //DRAW END
+    
+    UIBezierPath* ovalPathForEndOffset = [UIBezierPath bezierPath];
+    [ovalPathForEndOffset addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRectForTargets), CGRectGetMidY(ovalRectForTargets))
+                                  radius: CGRectGetWidth(ovalRectForTargets) / 2
+                              startAngle: [self.endOfTargetRegionInRad floatValue] * M_PI/180
+                                endAngle: [self.endOfTargetRegionInRad floatValue]* M_PI/180
+                               clockwise: YES];
+    [ovalPathForEndOffset addLineToPoint: CGPointMake(CGRectGetMidX(ovalRectForTargets), CGRectGetMidY(ovalRectForTargets))];
+    [ovalPathForEndOffset closePath];
+    ovalPathForEndOffset.lineWidth = 2;
+    [ovalPathForEndOffset stroke];
+    
+    
+
 }
 
 
--(void) drawTouchRegionFrame
+-(void) drawTouchRegionCircle
 {
-    UIBezierPath* ovalTouchRegionCenter = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(168.5, 265.5, 440, 440)];
+    
+    UIBezierPath* ovalTouchRegionCenter = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(163.5, 155.5, 440, 440)];
     if (self.NFShowFinalSelectedRangeAfterComplitingNFTrial) {
         [[UIColor whiteColor] setFill];
     }
@@ -583,6 +672,17 @@
     [[UIColor blackColor] setStroke];
     ovalTouchRegionCenter.lineWidth = 2;
     [ovalTouchRegionCenter stroke];
+}
+
+-(void) drawTouchRegionRectangle
+{
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(21.5, 756.5, 721, 167) cornerRadius:8];
+    
+    [[UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.3] setFill];
+    [rectanglePath fill];
+    [[UIColor whiteColor] setStroke];
+    rectanglePath.lineWidth = 3;
+    [rectanglePath stroke];
 }
 
 

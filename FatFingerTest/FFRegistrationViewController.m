@@ -45,6 +45,9 @@
 
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    
+// Un-comment that to force Field Check!
+    
 //    if ([identifier isEqualToString:@"startCalibration"]) {
 //        return [self checkFieldsComplete];
 //    }
