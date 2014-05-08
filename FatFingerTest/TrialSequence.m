@@ -7,32 +7,15 @@
 //
 
 #import "TrialSequence.h"
+#import "TrialInfo.h"
 
 
 @interface TrialSequence ()
-@property (nonatomic, strong) NSMutableArray* trialSequence;    // of Trial info
-@property (nonatomic, strong) NSMutableArray* trialWarmUpSequence;    // of Trial info
-#define NUMBER_OF_WARMUP_TRIALS 2
+@property (nonatomic, strong) NSMutableArray* repetitions;    // of Trial info
 @end
 
 @implementation TrialSequence
 
-
-
-
-#pragma mark - get next Trial
--(TrialInfo *)getNextTrial{
-    TrialInfo *t  = [self.trialSequence firstObject];
-    if(t) [self.trialSequence removeObjectAtIndex:0]; // if not nil;
-    return t;
-}
-
--(TrialInfo *)getNextWarmUpTrial
-{
-    TrialInfo *t  = [self.trialWarmUpSequence firstObject];
-    if(t) [self.trialWarmUpSequence removeObjectAtIndex:0]; // if not nil;
-    return t;
-}
 
 #pragma mark - Initialization
 -(instancetype)init
@@ -41,10 +24,19 @@
     
     if (self){
         [self createTrialSequence];
-        [self createWarmUpTrialSequence];
     }
     return self;
 }
+
+
+#pragma mark - get next Trial
+-(Repetition *)getNextRepetition{
+    Repetition *r  = [self.repetitions firstObject];
+    if(r) [self.repetitions removeObjectAtIndex:0]; // if not nil;
+    return r;
+}
+
+
 
 #pragma mark - create Trial Sequence
 - (void)createTrialSequence
@@ -52,6 +44,9 @@
     int tID = 1;    //Trial ID
     for( int i = 0; i < [TrialSequence validRepetitions]; i++)      // for each repetition
     {
+        Repetition *currentRepetition = [[Repetition alloc] init];
+        [self.repetitions addObject:currentRepetition];
+        
         NSMutableArray * DFTrials = [TrialSequence sequenceofTrailsforValidN_IsDescrete:YES hasFeedback:YES];
         NSMutableArray * NDFTrials = [TrialSequence sequenceofTrailsforValidN_IsDescrete:NO hasFeedback:YES];
         NSMutableArray * DNFTrials = [TrialSequence sequenceofTrailsforValidN_IsDescrete:YES hasFeedback:NO];
@@ -77,51 +72,35 @@
             trial.trialID = [NSNumber numberWithInt:tID++];
             [allTrials removeObjectAtIndex:r];
             
-            [self.trialSequence addObject:trial];
+            [currentRepetition addTrial:trial];
         }
     }
 }
 
-//Randomly takes NUMBER_OF_WARMUP_TRIALS trilas from the trial Sequence
-//and adds them to the WarmUp. Could be done differently
 
-- (void)createWarmUpTrialSequence
-{
-    for (int i = 0; i < NUMBER_OF_WARMUP_TRIALS; i++) {
-        
-        int r = arc4random()%[self.trialSequence count];
-        
-        TrialInfo *trial = [self.trialSequence objectAtIndex:r];
-        // We should check if it is right  that way!!
-        trial.trialID = [NSNumber numberWithInt:i+1];
-        [self.trialWarmUpSequence addObject:trial];
-    }
-}
 
 #pragma mark - Getters
 
--  (NSMutableArray * )trialSequence
+
+
+
+-  (NSMutableArray * )repetitions
 {
-    if(!_trialSequence) _trialSequence = [[NSMutableArray alloc] init];
-    return _trialSequence;
+    if(!_repetitions) _repetitions = [[NSMutableArray alloc] init];
+    return _repetitions;
 }
 
--  (NSMutableArray * )trialWarmUpSequence
-{
-    if(!_trialWarmUpSequence) _trialWarmUpSequence = [[NSMutableArray alloc] init];
-    return _trialWarmUpSequence;
-}
 
 #pragma mark - Class functions
 
 + (int)validRepetitions
 {
-    return 2;
+    return 3;
 }
 
 + (NSArray *)validN
 {
-    return @[@5];   //@[@2, @3, @4......]
+    return @[@2];   //@[@2, @3, @4......]
 }
 
 # pragma mark - Trial Constructors

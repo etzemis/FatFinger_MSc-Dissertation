@@ -2,14 +2,14 @@
 //  User.h
 //  FatFinger
 //
-//  Created by Evangelos Tzemis on 4/11/14.
+//  Created by Evangelos Tzemis on 5/8/14.
 //  Copyright (c) 2014 Evangelos Tzemis. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class FDTrial, FNDTrial, NFDTrial, NFNDTrial;
+@class FDTrial, FNDTrial, NFDTrial, NFNDTrial, RepetitionStats;
 
 @interface User : NSManagedObject
 
@@ -26,6 +26,7 @@
 @property (nonatomic, retain) NSSet *fndtrials;
 @property (nonatomic, retain) NSSet *nfdtrials;
 @property (nonatomic, retain) NSSet *nfndtrials;
+@property (nonatomic, retain) NSSet *repetitionStats;
 @end
 
 @interface User (CoreDataGeneratedAccessors)
@@ -49,5 +50,10 @@
 - (void)removeNfndtrialsObject:(NFNDTrial *)value;
 - (void)addNfndtrials:(NSSet *)values;
 - (void)removeNfndtrials:(NSSet *)values;
+
+- (void)addRepetitionStatsObject:(RepetitionStats *)value;
+- (void)removeRepetitionStatsObject:(RepetitionStats *)value;
+- (void)addRepetitionStats:(NSSet *)values;
+- (void)removeRepetitionStats:(NSSet *)values;
 
 @end

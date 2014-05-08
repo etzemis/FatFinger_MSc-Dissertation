@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TrialInfo.h"
+#import "Repetition.h"
 @interface TrialSequence : NSObject
--(TrialInfo *)getNextTrial;
--(TrialInfo *)getNextWarmUpTrial;
+-(Repetition *)getNextRepetition;
+
 @end

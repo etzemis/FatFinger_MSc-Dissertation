@@ -7,7 +7,7 @@
 //
 
 #import "FFCalibrationViewController.h"
-#import "FFWarmUpTrialViewController.h"
+#import "FFTrialViewController.h"
 
 
 @implementation FFCalibrationViewController
@@ -26,9 +26,9 @@
             visualizationVC.max = self.CalibrationView.maxContactSize;
         }
     }
-    else if ([segue.identifier isEqualToString:@"start warm up trials"]) {
-        if ([segue.destinationViewController isKindOfClass:[FFWarmUpTrialViewController class]]) {
-            FFWarmUpTrialViewController * tvc= (FFWarmUpTrialViewController*) segue.destinationViewController;
+    else if ([segue.identifier isEqualToString:@"start experiment trials"]) {
+        if ([segue.destinationViewController isKindOfClass:[FFTrialViewController class]]) {
+            FFTrialViewController * tvc= (FFTrialViewController*) segue.destinationViewController;
             self.user.minArea = self.CalibrationView.minContactSize;
             self.user.maxArea= self.CalibrationView.maxContactSize;
             tvc.user = self.user;

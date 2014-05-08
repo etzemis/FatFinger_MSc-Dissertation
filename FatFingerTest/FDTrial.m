@@ -2,7 +2,7 @@
 //  FDTrial.m
 //  FatFinger
 //
-//  Created by Evangelos Tzemis on 4/11/14.
+//  Created by Evangelos Tzemis on 5/8/14.
 //  Copyright (c) 2014 Evangelos Tzemis. All rights reserved.
 //
 

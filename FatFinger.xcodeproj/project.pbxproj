@@ -27,6 +27,14 @@
 		27273C6D18A99343005C144A /* FFVisualizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27273C6718A99343005C144A /* FFVisualizationViewController.m */; };
 		27273C7518A99895005C144A /* FFRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27273C7418A99895005C144A /* FFRegistrationViewController.m */; };
 		27312F4618AA51C9004287DE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27312F4518AA51C9004287DE /* CoreData.framework */; };
+		273EC161191BD88B003DB122 /* Repetition.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC160191BD88B003DB122 /* Repetition.m */; };
+		273EC164191BF0E5003DB122 /* BlockInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC163191BF0E5003DB122 /* BlockInfo.m */; };
+		273EC179191C17F8003DB122 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC178191C17F8003DB122 /* User.m */; };
+		273EC17C191C17F9003DB122 /* NFNDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC17B191C17F9003DB122 /* NFNDTrial.m */; };
+		273EC17F191C17F9003DB122 /* NFDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC17E191C17F9003DB122 /* NFDTrial.m */; };
+		273EC182191C17F9003DB122 /* FDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC181191C17F9003DB122 /* FDTrial.m */; };
+		273EC185191C17F9003DB122 /* FNDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC184191C17F9003DB122 /* FNDTrial.m */; };
+		273EC188191C17F9003DB122 /* RepetitionStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC187191C17F9003DB122 /* RepetitionStats.m */; };
 		2758157318DFA63D00D65266 /* FFTrialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758157218DFA63D00D65266 /* FFTrialView.m */; };
 		27856EEC18E39281007180A7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27856EEA18E39281007180A7 /* Model.xcdatamodeld */; };
 		27856F1A18E3BF1B007180A7 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27856F1918E3BF1B007180A7 /* CoreDataTableViewController.m */; };
@@ -37,12 +45,6 @@
 		2785E05918E1095800E46E84 /* successSound2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2785E05818E1095800E46E84 /* successSound2.wav */; };
 		278DA93A18C8F8D500AD245A /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 278DA93918C8F8D500AD245A /* iPadStoryboard.storyboard */; };
 		278DA93B18C8F8D500AD245A /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 278DA93918C8F8D500AD245A /* iPadStoryboard.storyboard */; };
-		279D850C1915A5F70003E126 /* FFWarmUpTrialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279D850B1915A5F70003E126 /* FFWarmUpTrialViewController.m */; };
-		27E5083618F8216800D50FA0 /* NFDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5083518F8216800D50FA0 /* NFDTrial.m */; };
-		27E5083918F8216900D50FA0 /* NFNDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5083818F8216900D50FA0 /* NFNDTrial.m */; };
-		27E5083C18F8216900D50FA0 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5083B18F8216900D50FA0 /* User.m */; };
-		27E5083F18F8216900D50FA0 /* FDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5083E18F8216900D50FA0 /* FDTrial.m */; };
-		27E5084218F8216900D50FA0 /* FNDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5084118F8216900D50FA0 /* FNDTrial.m */; };
 		27FE11CB18B63C1B00B5F2F9 /* FFTrialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FE11CA18B63C1B00B5F2F9 /* FFTrialViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +89,22 @@
 		27273C7318A99895005C144A /* FFRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFRegistrationViewController.h; sourceTree = "<group>"; };
 		27273C7418A99895005C144A /* FFRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFRegistrationViewController.m; sourceTree = "<group>"; };
 		27312F4518AA51C9004287DE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		273EC15F191BD88B003DB122 /* Repetition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repetition.h; sourceTree = "<group>"; };
+		273EC160191BD88B003DB122 /* Repetition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repetition.m; sourceTree = "<group>"; };
+		273EC162191BF0E5003DB122 /* BlockInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockInfo.h; sourceTree = "<group>"; };
+		273EC163191BF0E5003DB122 /* BlockInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockInfo.m; sourceTree = "<group>"; };
+		273EC177191C17F8003DB122 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		273EC178191C17F8003DB122 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		273EC17A191C17F9003DB122 /* NFNDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFNDTrial.h; sourceTree = "<group>"; };
+		273EC17B191C17F9003DB122 /* NFNDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFNDTrial.m; sourceTree = "<group>"; };
+		273EC17D191C17F9003DB122 /* NFDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFDTrial.h; sourceTree = "<group>"; };
+		273EC17E191C17F9003DB122 /* NFDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFDTrial.m; sourceTree = "<group>"; };
+		273EC180191C17F9003DB122 /* FDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDTrial.h; sourceTree = "<group>"; };
+		273EC181191C17F9003DB122 /* FDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDTrial.m; sourceTree = "<group>"; };
+		273EC183191C17F9003DB122 /* FNDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNDTrial.h; sourceTree = "<group>"; };
+		273EC184191C17F9003DB122 /* FNDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNDTrial.m; sourceTree = "<group>"; };
+		273EC186191C17F9003DB122 /* RepetitionStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepetitionStats.h; sourceTree = "<group>"; };
+		273EC187191C17F9003DB122 /* RepetitionStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepetitionStats.m; sourceTree = "<group>"; };
 		2758157118DFA63D00D65266 /* FFTrialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTrialView.h; sourceTree = "<group>"; };
 		2758157218DFA63D00D65266 /* FFTrialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFTrialView.m; sourceTree = "<group>"; };
 		27856EEB18E39281007180A7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -101,18 +119,6 @@
 		2785E05618E1094500E46E84 /* successSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = successSound.wav; sourceTree = "<group>"; };
 		2785E05818E1095800E46E84 /* successSound2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = successSound2.wav; sourceTree = "<group>"; };
 		278DA93918C8F8D500AD245A /* iPadStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPadStoryboard.storyboard; sourceTree = "<group>"; };
-		279D850A1915A5F70003E126 /* FFWarmUpTrialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFWarmUpTrialViewController.h; sourceTree = "<group>"; };
-		279D850B1915A5F70003E126 /* FFWarmUpTrialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFWarmUpTrialViewController.m; sourceTree = "<group>"; };
-		27E5083418F8216800D50FA0 /* NFDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFDTrial.h; sourceTree = "<group>"; };
-		27E5083518F8216800D50FA0 /* NFDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFDTrial.m; sourceTree = "<group>"; };
-		27E5083718F8216900D50FA0 /* NFNDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFNDTrial.h; sourceTree = "<group>"; };
-		27E5083818F8216900D50FA0 /* NFNDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFNDTrial.m; sourceTree = "<group>"; };
-		27E5083A18F8216900D50FA0 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		27E5083B18F8216900D50FA0 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		27E5083D18F8216900D50FA0 /* FDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDTrial.h; sourceTree = "<group>"; };
-		27E5083E18F8216900D50FA0 /* FDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDTrial.m; sourceTree = "<group>"; };
-		27E5084018F8216900D50FA0 /* FNDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNDTrial.h; sourceTree = "<group>"; };
-		27E5084118F8216900D50FA0 /* FNDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNDTrial.m; sourceTree = "<group>"; };
 		27E7BB1E18E0C1C500959414 /* TrialComplitedNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrialComplitedNotification.h; sourceTree = "<group>"; };
 		27FE11C918B63C1B00B5F2F9 /* FFTrialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTrialViewController.h; sourceTree = "<group>"; };
 		27FE11CA18B63C1B00B5F2F9 /* FFTrialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFTrialViewController.m; sourceTree = "<group>"; };
@@ -190,7 +196,7 @@
 				27273C6518A992F8005C144A /* Calibration */,
 				27273C7118A9934D005C144A /* visualization */,
 				27FE11C818B63BD400B5F2F9 /* Experiment */,
-				27856F2118E50425007180A7 /* Trials */,
+				27856F2118E50425007180A7 /* Trials - Blocks */,
 				2785E05A18E10BE600E46E84 /* Sound Samples */,
 				27273C4018A99269005C144A /* Images.xcassets */,
 				27273C2F18A99269005C144A /* Supporting Files */,
@@ -264,16 +270,18 @@
 			isa = PBXGroup;
 			children = (
 				27856EEA18E39281007180A7 /* Model.xcdatamodeld */,
-				27E5083A18F8216900D50FA0 /* User.h */,
-				27E5083B18F8216900D50FA0 /* User.m */,
-				27E5084018F8216900D50FA0 /* FNDTrial.h */,
-				27E5084118F8216900D50FA0 /* FNDTrial.m */,
-				27E5083D18F8216900D50FA0 /* FDTrial.h */,
-				27E5083E18F8216900D50FA0 /* FDTrial.m */,
-				27E5083718F8216900D50FA0 /* NFNDTrial.h */,
-				27E5083818F8216900D50FA0 /* NFNDTrial.m */,
-				27E5083418F8216800D50FA0 /* NFDTrial.h */,
-				27E5083518F8216800D50FA0 /* NFDTrial.m */,
+				273EC186191C17F9003DB122 /* RepetitionStats.h */,
+				273EC187191C17F9003DB122 /* RepetitionStats.m */,
+				273EC183191C17F9003DB122 /* FNDTrial.h */,
+				273EC184191C17F9003DB122 /* FNDTrial.m */,
+				273EC180191C17F9003DB122 /* FDTrial.h */,
+				273EC181191C17F9003DB122 /* FDTrial.m */,
+				273EC17D191C17F9003DB122 /* NFDTrial.h */,
+				273EC17E191C17F9003DB122 /* NFDTrial.m */,
+				273EC17A191C17F9003DB122 /* NFNDTrial.h */,
+				273EC17B191C17F9003DB122 /* NFNDTrial.m */,
+				273EC177191C17F8003DB122 /* User.h */,
+				273EC178191C17F8003DB122 /* User.m */,
 			);
 			name = ModelClasses;
 			sourceTree = "<group>";
@@ -289,15 +297,19 @@
 			path = CoreDataTableViewController;
 			sourceTree = "<group>";
 		};
-		27856F2118E50425007180A7 /* Trials */ = {
+		27856F2118E50425007180A7 /* Trials - Blocks */ = {
 			isa = PBXGroup;
 			children = (
 				27856F2218E50539007180A7 /* TrialSequence.h */,
 				27856F2318E50539007180A7 /* TrialSequence.m */,
 				27856F2518E50722007180A7 /* TrialInfo.h */,
 				27856F2618E50722007180A7 /* TrialInfo.m */,
+				273EC15F191BD88B003DB122 /* Repetition.h */,
+				273EC160191BD88B003DB122 /* Repetition.m */,
+				273EC162191BF0E5003DB122 /* BlockInfo.h */,
+				273EC163191BF0E5003DB122 /* BlockInfo.m */,
 			);
-			name = Trials;
+			name = "Trials - Blocks";
 			sourceTree = "<group>";
 		};
 		2785E05A18E10BE600E46E84 /* Sound Samples */ = {
@@ -312,8 +324,6 @@
 		27FE11C818B63BD400B5F2F9 /* Experiment */ = {
 			isa = PBXGroup;
 			children = (
-				279D850A1915A5F70003E126 /* FFWarmUpTrialViewController.h */,
-				279D850B1915A5F70003E126 /* FFWarmUpTrialViewController.m */,
 				27FE11C918B63C1B00B5F2F9 /* FFTrialViewController.h */,
 				27FE11CA18B63C1B00B5F2F9 /* FFTrialViewController.m */,
 				2758157118DFA63D00D65266 /* FFTrialView.h */,
@@ -428,20 +438,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				27856F2718E50722007180A7 /* TrialInfo.m in Sources */,
-				27E5083918F8216900D50FA0 /* NFNDTrial.m in Sources */,
-				27E5083C18F8216900D50FA0 /* User.m in Sources */,
+				273EC182191C17F9003DB122 /* FDTrial.m in Sources */,
+				273EC161191BD88B003DB122 /* Repetition.m in Sources */,
 				27273C3918A99269005C144A /* FFAppDelegate.m in Sources */,
 				27273C3518A99269005C144A /* main.m in Sources */,
-				279D850C1915A5F70003E126 /* FFWarmUpTrialViewController.m in Sources */,
-				27E5084218F8216900D50FA0 /* FNDTrial.m in Sources */,
 				2712614F18B1392800A49CDE /* FFAnimationView.m in Sources */,
+				273EC188191C17F9003DB122 /* RepetitionStats.m in Sources */,
 				2758157318DFA63D00D65266 /* FFTrialView.m in Sources */,
-				27E5083F18F8216900D50FA0 /* FDTrial.m in Sources */,
+				273EC164191BF0E5003DB122 /* BlockInfo.m in Sources */,
 				27273C7518A99895005C144A /* FFRegistrationViewController.m in Sources */,
+				273EC17F191C17F9003DB122 /* NFDTrial.m in Sources */,
+				273EC17C191C17F9003DB122 /* NFNDTrial.m in Sources */,
+				273EC179191C17F8003DB122 /* User.m in Sources */,
 				27273C3F18A99269005C144A /* FFViewController.m in Sources */,
 				27273C6D18A99343005C144A /* FFVisualizationViewController.m in Sources */,
+				273EC185191C17F9003DB122 /* FNDTrial.m in Sources */,
 				27273C6418A992E9005C144A /* FFCalibrationView.m in Sources */,
-				27E5083618F8216800D50FA0 /* NFDTrial.m in Sources */,
 				27273C6218A992E9005C144A /* FFCalibrationViewController.m in Sources */,
 				27856EEC18E39281007180A7 /* Model.xcdatamodeld in Sources */,
 				27856F1D18E3C791007180A7 /* UsersCDTVC.m in Sources */,

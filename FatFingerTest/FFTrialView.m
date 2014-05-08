@@ -300,8 +300,6 @@
 }
 
 
-
-
 #pragma mark - Helper Functions
 -(BOOL)isInsideTarget:(NSNumber *)indexval
 {
@@ -314,8 +312,6 @@
         return NO;
 
 }
-
-
 
 #pragma mark - Trial Initializer
 

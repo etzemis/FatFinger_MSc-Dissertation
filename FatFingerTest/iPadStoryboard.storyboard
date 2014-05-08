@@ -373,9 +373,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Calibration" id="xkI-WJ-exN">
-                        <barButtonItem key="leftBarButtonItem" title="Start Warm-Up" id="Y6n-d6-k1o">
+                        <barButtonItem key="leftBarButtonItem" title="Start Experiment" id="Y6n-d6-k1o">
                             <connections>
-                                <segue destination="90M-NN-4YN" kind="modal" identifier="start warm up trials" id="28p-Sd-5kK"/>
+                                <segue destination="9vd-Xi-IKt" kind="modal" identifier="start experiment trials" id="jAl-kB-FgS"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Visualize Input" id="adE-cC-c9a">
@@ -404,8 +404,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GvO-De-eSg" customClass="FFAnimationView">
-                                <rect key="frame" x="0.0" y="71" width="768" height="953"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GvO-De-eSg" customClass="FFAnimationView">
+                                <rect key="frame" x="0.0" y="65" width="768" height="959"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -457,8 +457,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZYa-bS-AZ7">
-                                        <rect key="frame" x="273" y="464" width="222" height="185"/>
+                                        <rect key="frame" x="246" y="464" width="277" height="185"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="NEXT  TRIAL">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -483,63 +484,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aQh-OQ-gk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2842" y="-1479"/>
-        </scene>
-        <!--Warm Up Trial View Controller-->
-        <scene sceneID="gGU-I4-feT">
-            <objects>
-                <viewController id="90M-NN-4YN" customClass="FFWarmUpTrialViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Xit-13-UEu"/>
-                        <viewControllerLayoutGuide type="bottom" id="phy-YT-gez"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="YTc-aJ-IsY">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KNx-E2-RhT">
-                                <rect key="frame" x="0.0" y="26" width="768" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Warm-up Trial No: 0" id="7Lb-fZ-Hhs">
-                                        <barButtonItem key="rightBarButtonItem" title="Start Experiment" id="Y7p-Wc-ZO2">
-                                            <connections>
-                                                <segue destination="9vd-Xi-IKt" kind="modal" identifier="start Experiment trials" id="Efr-zr-F3S"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <view contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dXT-bs-xZ0" customClass="FFTrialView">
-                                <rect key="frame" x="0.0" y="70" width="768" height="954"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyk-h4-4cE">
-                                        <rect key="frame" x="258" y="463" width="253" height="185"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="NEXT WARM-UP TRIAL">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="startNewWarmUpTrial:" destination="90M-NN-4YN" eventType="touchUpInside" id="p5D-iK-3Xc"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="StartExperimentButton" destination="Y7p-Wc-ZO2" id="nMe-kS-XuA"/>
-                        <outlet property="navigationBar" destination="7Lb-fZ-Hhs" id="ADV-hV-oWJ"/>
-                        <outlet property="startNextWarmUpTrialButton" destination="Eyk-h4-4cE" id="1UU-ty-vxR"/>
-                        <outlet property="tview" destination="dXT-bs-xZ0" id="dca-8R-cUc"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fLV-VF-E3E" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1759" y="-1479"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="HeE-qr-llF">

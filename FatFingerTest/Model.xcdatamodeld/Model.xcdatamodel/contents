@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="FDTrial" representedClassName="FDTrial" syncable="YES">
         <attribute name="n" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="reEntries" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -43,6 +43,14 @@
         <attribute name="trialID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="whichUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="nfndtrials" inverseEntity="User" syncable="YES"/>
     </entity>
+    <entity name="RepetitionStats" representedClassName="RepetitionStats" syncable="YES">
+        <attribute name="averageReEntries" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="averageReTouches" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="averageTrialTime" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="repetitionID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totalTime" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="whichUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="repetitionStats" inverseEntity="User" syncable="YES"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
@@ -57,12 +65,14 @@
         <relationship name="fndtrials" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FNDTrial" inverseName="whichUser" inverseEntity="FNDTrial" syncable="YES"/>
         <relationship name="nfdtrials" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="NFDTrial" inverseName="whichUser" inverseEntity="NFDTrial" syncable="YES"/>
         <relationship name="nfndtrials" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="NFNDTrial" inverseName="whichUser" inverseEntity="NFNDTrial" syncable="YES"/>
+        <relationship name="repetitionStats" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RepetitionStats" inverseName="whichUser" inverseEntity="RepetitionStats" syncable="YES"/>
     </entity>
     <elements>
         <element name="FDTrial" positionX="151" positionY="-216" width="128" height="148"/>
         <element name="FNDTrial" positionX="151" positionY="-54" width="128" height="178"/>
         <element name="NFDTrial" positionX="151" positionY="108" width="128" height="178"/>
         <element name="NFNDTrial" positionX="151" positionY="290" width="128" height="193"/>
-        <element name="User" positionX="-108" positionY="-72" width="128" height="238"/>
+        <element name="User" positionX="-108" positionY="-72" width="128" height="253"/>
+        <element name="RepetitionStats" positionX="151" positionY="504" width="128" height="133"/>
     </elements>
 </model>
