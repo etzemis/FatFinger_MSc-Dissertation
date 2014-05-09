@@ -198,6 +198,7 @@
         self.lastTrialInfo.target = self.target;
         self.lastTrialInfo.isDescrete = self.isDescrete;
         self.lastTrialInfo.hasFeedback  = self.hasFeedback;
+        self.lastTrialInfo.rawInputValue = self.lastIndexPosition;
         
         
         self.lastTrialInfo.totalTime = @(-1*totalTimeOfTrial);
@@ -250,6 +251,7 @@
     self.lastTrialInfo.target = self.target;
     self.lastTrialInfo.hasFeedback = self.hasFeedback;
     self.lastTrialInfo.isDescrete = self.isDescrete;
+    self.lastTrialInfo.rawInputValue = lastIndexBeforeTouchEnded;
     
     self.lastTrialInfo.reTouches = @(self.reTouches);
     self.lastTrialInfo.reEntries = @(self.targetReentries);

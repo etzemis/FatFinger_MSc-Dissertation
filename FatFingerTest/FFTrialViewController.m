@@ -196,6 +196,8 @@
         fdtrial.trialID = self.LastTrialID;
         fdtrial.n = trialInfo.n;
         fdtrial.target = trialInfo.target;
+        fdtrial.repetitionID = @([self.BlockInfos count]);
+        fdtrial.rawInputValue = trialInfo.rawInputValue;
     }
     else if (trialInfo.hasFeedback && !trialInfo.isDescrete) {
         FNDTrial *fndtrial = [NSEntityDescription insertNewObjectForEntityForName:@"FNDTrial"
@@ -210,6 +212,8 @@
         fndtrial.trialID = self.LastTrialID;
         fndtrial.n = trialInfo.n;
         fndtrial.target = trialInfo.target;
+        fndtrial.repetitionID = @([self.BlockInfos count]);
+        fndtrial.rawInputValue = trialInfo.rawInputValue;
     }
 // No feedBack
     else if (!trialInfo.hasFeedback && trialInfo.isDescrete ) {
@@ -225,6 +229,8 @@
         nfdtrial.trialID = self.LastTrialID;
         nfdtrial.n = trialInfo.n;
         nfdtrial.target = trialInfo.target;
+        nfdtrial.repetitionID = @([self.BlockInfos count]);
+        nfdtrial.rawInputValue = trialInfo.rawInputValue;
     }
     else if (!trialInfo.hasFeedback&& !trialInfo.isDescrete ) {
         NFNDTrial *nfndtrial = [NSEntityDescription insertNewObjectForEntityForName:@"NFNDTrial"
@@ -240,6 +246,8 @@
         nfndtrial.trialID = self.LastTrialID;
         nfndtrial.n = trialInfo.n;
         nfndtrial.target = trialInfo.target;
+        nfndtrial.repetitionID = @([self.BlockInfos count]);
+        nfndtrial.rawInputValue = trialInfo.rawInputValue;
     }
 
 }
@@ -293,7 +301,7 @@
     _currentRepetition = currentRepetition;
     if(_currentRepetition){
         BlockInfo *bi =[[BlockInfo alloc] init];
-        bi.id = @([self.BlockInfos count]);
+        bi.id = @([self.BlockInfos count] + 1);   //1, 2, 3, 4
         [self.BlockInfos addObject:bi];
     }
 }

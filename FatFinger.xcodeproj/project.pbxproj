@@ -29,12 +29,12 @@
 		27312F4618AA51C9004287DE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27312F4518AA51C9004287DE /* CoreData.framework */; };
 		273EC161191BD88B003DB122 /* Repetition.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC160191BD88B003DB122 /* Repetition.m */; };
 		273EC164191BF0E5003DB122 /* BlockInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC163191BF0E5003DB122 /* BlockInfo.m */; };
-		273EC179191C17F8003DB122 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC178191C17F8003DB122 /* User.m */; };
-		273EC17C191C17F9003DB122 /* NFNDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC17B191C17F9003DB122 /* NFNDTrial.m */; };
-		273EC17F191C17F9003DB122 /* NFDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC17E191C17F9003DB122 /* NFDTrial.m */; };
-		273EC182191C17F9003DB122 /* FDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC181191C17F9003DB122 /* FDTrial.m */; };
-		273EC185191C17F9003DB122 /* FNDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC184191C17F9003DB122 /* FNDTrial.m */; };
-		273EC188191C17F9003DB122 /* RepetitionStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EC187191C17F9003DB122 /* RepetitionStats.m */; };
+		274D071C191CCCF600EBE37E /* FDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D071B191CCCF600EBE37E /* FDTrial.m */; };
+		274D071F191CCCF700EBE37E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D071E191CCCF700EBE37E /* User.m */; };
+		274D0722191CCCF700EBE37E /* FNDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D0721191CCCF700EBE37E /* FNDTrial.m */; };
+		274D0725191CCCF700EBE37E /* NFDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D0724191CCCF700EBE37E /* NFDTrial.m */; };
+		274D0728191CCCF700EBE37E /* NFNDTrial.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D0727191CCCF700EBE37E /* NFNDTrial.m */; };
+		274D072B191CCCF700EBE37E /* RepetitionStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D072A191CCCF700EBE37E /* RepetitionStats.m */; };
 		2758157318DFA63D00D65266 /* FFTrialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758157218DFA63D00D65266 /* FFTrialView.m */; };
 		27856EEC18E39281007180A7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27856EEA18E39281007180A7 /* Model.xcdatamodeld */; };
 		27856F1A18E3BF1B007180A7 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27856F1918E3BF1B007180A7 /* CoreDataTableViewController.m */; };
@@ -93,18 +93,18 @@
 		273EC160191BD88B003DB122 /* Repetition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repetition.m; sourceTree = "<group>"; };
 		273EC162191BF0E5003DB122 /* BlockInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockInfo.h; sourceTree = "<group>"; };
 		273EC163191BF0E5003DB122 /* BlockInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockInfo.m; sourceTree = "<group>"; };
-		273EC177191C17F8003DB122 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		273EC178191C17F8003DB122 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		273EC17A191C17F9003DB122 /* NFNDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFNDTrial.h; sourceTree = "<group>"; };
-		273EC17B191C17F9003DB122 /* NFNDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFNDTrial.m; sourceTree = "<group>"; };
-		273EC17D191C17F9003DB122 /* NFDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFDTrial.h; sourceTree = "<group>"; };
-		273EC17E191C17F9003DB122 /* NFDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFDTrial.m; sourceTree = "<group>"; };
-		273EC180191C17F9003DB122 /* FDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDTrial.h; sourceTree = "<group>"; };
-		273EC181191C17F9003DB122 /* FDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDTrial.m; sourceTree = "<group>"; };
-		273EC183191C17F9003DB122 /* FNDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNDTrial.h; sourceTree = "<group>"; };
-		273EC184191C17F9003DB122 /* FNDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNDTrial.m; sourceTree = "<group>"; };
-		273EC186191C17F9003DB122 /* RepetitionStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepetitionStats.h; sourceTree = "<group>"; };
-		273EC187191C17F9003DB122 /* RepetitionStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepetitionStats.m; sourceTree = "<group>"; };
+		274D071A191CCCF600EBE37E /* FDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDTrial.h; sourceTree = "<group>"; };
+		274D071B191CCCF600EBE37E /* FDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDTrial.m; sourceTree = "<group>"; };
+		274D071D191CCCF700EBE37E /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		274D071E191CCCF700EBE37E /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		274D0720191CCCF700EBE37E /* FNDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNDTrial.h; sourceTree = "<group>"; };
+		274D0721191CCCF700EBE37E /* FNDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNDTrial.m; sourceTree = "<group>"; };
+		274D0723191CCCF700EBE37E /* NFDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFDTrial.h; sourceTree = "<group>"; };
+		274D0724191CCCF700EBE37E /* NFDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFDTrial.m; sourceTree = "<group>"; };
+		274D0726191CCCF700EBE37E /* NFNDTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFNDTrial.h; sourceTree = "<group>"; };
+		274D0727191CCCF700EBE37E /* NFNDTrial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFNDTrial.m; sourceTree = "<group>"; };
+		274D0729191CCCF700EBE37E /* RepetitionStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepetitionStats.h; sourceTree = "<group>"; };
+		274D072A191CCCF700EBE37E /* RepetitionStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepetitionStats.m; sourceTree = "<group>"; };
 		2758157118DFA63D00D65266 /* FFTrialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTrialView.h; sourceTree = "<group>"; };
 		2758157218DFA63D00D65266 /* FFTrialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFTrialView.m; sourceTree = "<group>"; };
 		27856EEB18E39281007180A7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -270,18 +270,18 @@
 			isa = PBXGroup;
 			children = (
 				27856EEA18E39281007180A7 /* Model.xcdatamodeld */,
-				273EC186191C17F9003DB122 /* RepetitionStats.h */,
-				273EC187191C17F9003DB122 /* RepetitionStats.m */,
-				273EC183191C17F9003DB122 /* FNDTrial.h */,
-				273EC184191C17F9003DB122 /* FNDTrial.m */,
-				273EC180191C17F9003DB122 /* FDTrial.h */,
-				273EC181191C17F9003DB122 /* FDTrial.m */,
-				273EC17D191C17F9003DB122 /* NFDTrial.h */,
-				273EC17E191C17F9003DB122 /* NFDTrial.m */,
-				273EC17A191C17F9003DB122 /* NFNDTrial.h */,
-				273EC17B191C17F9003DB122 /* NFNDTrial.m */,
-				273EC177191C17F8003DB122 /* User.h */,
-				273EC178191C17F8003DB122 /* User.m */,
+				274D0729191CCCF700EBE37E /* RepetitionStats.h */,
+				274D072A191CCCF700EBE37E /* RepetitionStats.m */,
+				274D0726191CCCF700EBE37E /* NFNDTrial.h */,
+				274D0727191CCCF700EBE37E /* NFNDTrial.m */,
+				274D0723191CCCF700EBE37E /* NFDTrial.h */,
+				274D0724191CCCF700EBE37E /* NFDTrial.m */,
+				274D0720191CCCF700EBE37E /* FNDTrial.h */,
+				274D0721191CCCF700EBE37E /* FNDTrial.m */,
+				274D071D191CCCF700EBE37E /* User.h */,
+				274D071E191CCCF700EBE37E /* User.m */,
+				274D071A191CCCF600EBE37E /* FDTrial.h */,
+				274D071B191CCCF600EBE37E /* FDTrial.m */,
 			);
 			name = ModelClasses;
 			sourceTree = "<group>";
@@ -438,21 +438,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				27856F2718E50722007180A7 /* TrialInfo.m in Sources */,
-				273EC182191C17F9003DB122 /* FDTrial.m in Sources */,
+				274D071C191CCCF600EBE37E /* FDTrial.m in Sources */,
 				273EC161191BD88B003DB122 /* Repetition.m in Sources */,
 				27273C3918A99269005C144A /* FFAppDelegate.m in Sources */,
 				27273C3518A99269005C144A /* main.m in Sources */,
 				2712614F18B1392800A49CDE /* FFAnimationView.m in Sources */,
-				273EC188191C17F9003DB122 /* RepetitionStats.m in Sources */,
+				274D072B191CCCF700EBE37E /* RepetitionStats.m in Sources */,
 				2758157318DFA63D00D65266 /* FFTrialView.m in Sources */,
 				273EC164191BF0E5003DB122 /* BlockInfo.m in Sources */,
+				274D0725191CCCF700EBE37E /* NFDTrial.m in Sources */,
 				27273C7518A99895005C144A /* FFRegistrationViewController.m in Sources */,
-				273EC17F191C17F9003DB122 /* NFDTrial.m in Sources */,
-				273EC17C191C17F9003DB122 /* NFNDTrial.m in Sources */,
-				273EC179191C17F8003DB122 /* User.m in Sources */,
+				274D0728191CCCF700EBE37E /* NFNDTrial.m in Sources */,
+				274D071F191CCCF700EBE37E /* User.m in Sources */,
 				27273C3F18A99269005C144A /* FFViewController.m in Sources */,
 				27273C6D18A99343005C144A /* FFVisualizationViewController.m in Sources */,
-				273EC185191C17F9003DB122 /* FNDTrial.m in Sources */,
+				274D0722191CCCF700EBE37E /* FNDTrial.m in Sources */,
 				27273C6418A992E9005C144A /* FFCalibrationView.m in Sources */,
 				27273C6218A992E9005C144A /* FFCalibrationViewController.m in Sources */,
 				27856EEC18E39281007180A7 /* Model.xcdatamodeld in Sources */,

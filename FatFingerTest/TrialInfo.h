@@ -26,4 +26,6 @@
 //No Feedback
 @property (nonatomic, retain) NSNumber * hitInsideTarget;
 
+
+@property (nonatomic, retain) NSNumber * rawInputValue;
 @end

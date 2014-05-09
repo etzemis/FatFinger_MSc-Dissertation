@@ -2,7 +2,7 @@
 //  FNDTrial.h
 //  FatFinger
 //
-//  Created by Evangelos Tzemis on 5/8/14.
+//  Created by Evangelos Tzemis on 5/9/14.
 //  Copyright (c) 2014 Evangelos Tzemis. All rights reserved.
 //
 
@@ -21,6 +21,8 @@
 @property (nonatomic, retain) NSNumber * targetPosition;
 @property (nonatomic, retain) NSNumber * totalTime;
 @property (nonatomic, retain) NSNumber * trialID;
+@property (nonatomic, retain) NSNumber * repetitionID;
+@property (nonatomic, retain) NSNumber * rawInputValue;
 @property (nonatomic, retain) User *whichUser;
 
 @end

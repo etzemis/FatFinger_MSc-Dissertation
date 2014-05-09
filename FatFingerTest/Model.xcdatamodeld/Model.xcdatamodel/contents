@@ -2,7 +2,9 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="FDTrial" representedClassName="FDTrial" syncable="YES">
         <attribute name="n" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="rawInputValue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="reEntries" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="repetitionID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="reTouches" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="target" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="totalTime" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -12,7 +14,9 @@
     <entity name="FNDTrial" representedClassName="FNDTrial" syncable="YES">
         <attribute name="n" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="offset" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="rawInputValue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="reEntries" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="repetitionID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="reTouches" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="target" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="targetPosition" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -24,7 +28,9 @@
         <attribute name="hitInsideTarget" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="n" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="offset" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="rawInputValue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="reEntries" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="repetitionID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="reTouches" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="target" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="totalTime" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -35,7 +41,9 @@
         <attribute name="hitInsideTarget" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="n" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="offset" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="rawInputValue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="reEntries" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="repetitionID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="reTouches" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="target" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="targetPosition" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -68,11 +76,11 @@
         <relationship name="repetitionStats" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RepetitionStats" inverseName="whichUser" inverseEntity="RepetitionStats" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FDTrial" positionX="151" positionY="-216" width="128" height="148"/>
-        <element name="FNDTrial" positionX="151" positionY="-54" width="128" height="178"/>
-        <element name="NFDTrial" positionX="151" positionY="108" width="128" height="178"/>
-        <element name="NFNDTrial" positionX="151" positionY="290" width="128" height="193"/>
-        <element name="User" positionX="-108" positionY="-72" width="128" height="253"/>
+        <element name="FDTrial" positionX="151" positionY="-216" width="128" height="178"/>
+        <element name="FNDTrial" positionX="151" positionY="-54" width="128" height="208"/>
+        <element name="NFDTrial" positionX="151" positionY="108" width="128" height="208"/>
+        <element name="NFNDTrial" positionX="151" positionY="290" width="128" height="223"/>
         <element name="RepetitionStats" positionX="151" positionY="504" width="128" height="133"/>
+        <element name="User" positionX="-108" positionY="-72" width="128" height="253"/>
     </elements>
 </model>

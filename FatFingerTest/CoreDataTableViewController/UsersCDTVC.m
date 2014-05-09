@@ -12,6 +12,7 @@
 #import "FNDTrial.h"
 #import "NFDTrial.h"
 #import "NFNDTrial.h"
+#import "RepetitionStats.h"
 
 
 @interface UsersCDTVC ()
@@ -144,8 +145,23 @@
     [fileHandle seekToEndOfFile];
    
 
+    
+    // Repetition Summmary
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"RepetitionStats"];
+    request.predicate = [NSPredicate predicateWithFormat:@"whichUser = %@", user];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"repetitionID"
+                                                              ascending:YES
+                                                               selector:@selector(compare:)]];
+    NSArray *repetitionStatistics = [self.managedObjectContext executeFetchRequest:request error:nil];
+    NSString *repetitionData = [NSString stringWithFormat:@"Repetition Statistics\nRepetition ID, Total Time, Average Trial Time, Average Trial Re-Entries, Average Trial Re-Touches\n"];
+    [fileHandle writeData:[repetitionData dataUsingEncoding:NSUTF8StringEncoding]];
+    for (RepetitionStats *r in repetitionStatistics) {
+        NSString *repetData = [NSString stringWithFormat:@"%@, %@, %@, %@, %@\n", r.repetitionID, r.totalTime, r.averageTrialTime, r.averageReEntries, r.averageReTouches];
+        [fileHandle writeData:[repetData dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+
     // FD Trials
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FDTrial"];
+    request = [NSFetchRequest fetchRequestWithEntityName:@"FDTrial"];
     request.predicate = [NSPredicate predicateWithFormat:@"whichUser = %@", user];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"trialID"
                                                               ascending:YES
