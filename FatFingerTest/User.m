@@ -2,7 +2,7 @@
 //  User.m
 //  FatFinger
 //
-//  Created by Evangelos Tzemis on 5/9/14.
+//  Created by Evangelos Tzemis on 5/10/14.
 //  Copyright (c) 2014 Evangelos Tzemis. All rights reserved.
 //
 
@@ -16,15 +16,9 @@
 
 @implementation User
 
-@dynamic age;
-@dynamic email;
-@dynamic experience;
-@dynamic gender;
-@dynamic lefthanded;
 @dynamic maxArea;
 @dynamic minArea;
-@dynamic name;
-@dynamic surname;
+@dynamic userID;
 @dynamic fdtrials;
 @dynamic fndtrials;
 @dynamic nfdtrials;

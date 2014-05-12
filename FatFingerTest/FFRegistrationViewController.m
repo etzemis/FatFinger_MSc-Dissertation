@@ -9,13 +9,7 @@
 #import "FFRegistrationViewController.h"
 
 @interface FFRegistrationViewController () <UITextFieldDelegate>
-@property (weak, nonatomic) IBOutlet UITextField *name;
-@property (weak, nonatomic) IBOutlet UITextField *surname;
-@property (weak, nonatomic) IBOutlet UITextField *email;
-@property (weak, nonatomic) IBOutlet UITextField *age;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *gender;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *isLeftHanded;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *hasPreviousiPadExperience;
+@property (weak, nonatomic) IBOutlet UITextField *userID;
 @end
 
 @implementation FFRegistrationViewController 
@@ -24,22 +18,9 @@
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField
 {
-    if(textField == self.name){
-        [self.name resignFirstResponder];
-        [self.surname becomeFirstResponder];
+    if(textField == self.userID){
+        [self.userID resignFirstResponder];
     }
-    if(textField == self.surname){
-        [self.surname resignFirstResponder];
-        [self.email becomeFirstResponder];
-    }
-    if(textField == self.email){
-        [self.email resignFirstResponder];
-        [self.age becomeFirstResponder];
-    }
-    if(textField == self.age){
-        [self.age resignFirstResponder];
-    }
-    
     return YES;
 }
 
@@ -48,9 +29,9 @@
     
 // Un-comment that to force Field Check!
     
-//    if ([identifier isEqualToString:@"startCalibration"]) {
-//        return [self checkFieldsComplete];
-//    }
+    if ([identifier isEqualToString:@"startCalibration"]) {
+        return [self checkFieldsComplete];
+    }
     return YES;
 }
 
@@ -69,46 +50,43 @@
 #pragma mark - Validation
 
 -(BOOL) checkFieldsComplete{
-    if ([self.name.text isEqualToString:@""] || [self.surname.text isEqualToString:@""] || [self.email.text isEqualToString:@""] ||  [self.age.text isEqualToString:@""]) {
-        
+    if ([self.userID.text isEqualToString:@""]) {
         [self alert:@"All fields should be completed before you proceed"];
-
         return NO;
-    } else {
-        return [self validateEmail];
     }
-}
-
--(BOOL) validateEmail{
-    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex]; //  return 0;
-    if ([emailTest evaluateWithObject:_email.text]) {
-        //check age field
+    else{       //Check if User ID Exists
         NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-        if ([nf numberFromString:self.age.text]) {  // is Decimal
-            return YES;
+        if ([nf numberFromString:self.userID.text]) {  // is Decimal
+            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
+            request.predicate = nil;        //all
+            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"userID"
+                                                                      ascending:YES
+                                                                       selector:@selector(compare:)]];
+            NSError *error;
+            NSArray * users = [self.context executeFetchRequest:request error:&error];
+            int lastID = [((User *)[users lastObject]).userID intValue];
+            if ([self.userID.text intValue] <= lastID) {
+                [self alert:[NSString stringWithFormat:@"User Id should be greater than %d", lastID]];
+                return NO;
+            }
+            else{
+                return YES;
+            }
         }
         else {
-            [self alert:@"Age Field should contain only numbers"];
+            [self alert:@"User ID should contain only numbers"];
             return NO;
         }
-    }
-    else{
-        [self alert:@"You need to enter a valid e-mail address"];
-        return NO;
-    }
+       
+    };
 }
+
 
 -(User*)createUser{
     User* user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                                inManagedObjectContext:self.context];
-    user.name = self.name.text;
-    user.surname = self.surname.text;
-    user.email = self.email.text;
-    user.age = @([self.age.text integerValue]);
-    user.gender = @(self.gender.selectedSegmentIndex == 0);  // true if male
-    user.lefthanded = @(self.isLeftHanded.selectedSegmentIndex == 0);  // true if leftHanded
-    user.experience = @(self.hasPreviousiPadExperience.selectedSegmentIndex == 0);  //true if he has
+    user.userID = @([self.userID.text integerValue]);
+    [self.context save:nil];
     return user;
 }
 

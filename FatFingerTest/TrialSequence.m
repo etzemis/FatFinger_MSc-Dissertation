@@ -95,7 +95,7 @@
 
 + (int)validRepetitions
 {
-    return 3;
+    return 2;
 }
 
 + (NSArray *)validN

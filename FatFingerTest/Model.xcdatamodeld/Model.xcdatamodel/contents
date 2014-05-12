@@ -60,15 +60,9 @@
         <relationship name="whichUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="repetitionStats" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
-        <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="experience" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="gender" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="lefthanded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="maxArea" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="minArea" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="surname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="fdtrials" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FDTrial" inverseName="whichUser" inverseEntity="FDTrial" syncable="YES"/>
         <relationship name="fndtrials" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FNDTrial" inverseName="whichUser" inverseEntity="FNDTrial" syncable="YES"/>
         <relationship name="nfdtrials" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="NFDTrial" inverseName="whichUser" inverseEntity="NFDTrial" syncable="YES"/>
@@ -76,11 +70,11 @@
         <relationship name="repetitionStats" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RepetitionStats" inverseName="whichUser" inverseEntity="RepetitionStats" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FDTrial" positionX="151" positionY="-216" width="128" height="178"/>
-        <element name="FNDTrial" positionX="151" positionY="-54" width="128" height="208"/>
-        <element name="NFDTrial" positionX="151" positionY="108" width="128" height="208"/>
-        <element name="NFNDTrial" positionX="151" positionY="290" width="128" height="223"/>
-        <element name="RepetitionStats" positionX="151" positionY="504" width="128" height="133"/>
-        <element name="User" positionX="-108" positionY="-72" width="128" height="253"/>
+        <element name="FDTrial" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="FNDTrial" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="NFDTrial" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="NFNDTrial" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="RepetitionStats" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

@@ -189,7 +189,7 @@
         FDTrial *fdtrial = [NSEntityDescription insertNewObjectForEntityForName:@"FDTrial"
                                       inManagedObjectContext:self.user.managedObjectContext];
         fdtrial.whichUser = self.user;
-        NSLog(@"Adding FD Trial for user %@", self.user.name );
+        NSLog(@"Adding FD Trial for user %@", self.user.userID );
         fdtrial.reEntries = trialInfo.reEntries;
         fdtrial.totalTime = trialInfo.totalTime;
         fdtrial.reTouches = trialInfo.reTouches;
@@ -203,7 +203,7 @@
         FNDTrial *fndtrial = [NSEntityDescription insertNewObjectForEntityForName:@"FNDTrial"
                                                          inManagedObjectContext:self.user.managedObjectContext];
         fndtrial.whichUser = self.user;
-        NSLog(@"Adding FND Trial for user %@", self.user.name );
+        NSLog(@"Adding FND Trial for user %@", self.user.userID );
         fndtrial.reEntries = trialInfo.reEntries;
         fndtrial.totalTime = trialInfo.totalTime;
         fndtrial.reTouches = trialInfo.reTouches;
@@ -220,7 +220,7 @@
         NFDTrial *nfdtrial = [NSEntityDescription insertNewObjectForEntityForName:@"NFDTrial"
                                                              inManagedObjectContext:self.user.managedObjectContext];
         nfdtrial.whichUser = self.user;
-        NSLog(@"Adding NFD Trial for user %@", self.user.name );
+        NSLog(@"Adding NFD Trial for user %@", self.user.userID );
         nfdtrial.reEntries = trialInfo.reEntries;
         nfdtrial.totalTime = trialInfo.totalTime;
         nfdtrial.reTouches = trialInfo.reTouches;
@@ -236,7 +236,7 @@
         NFNDTrial *nfndtrial = [NSEntityDescription insertNewObjectForEntityForName:@"NFNDTrial"
                                                            inManagedObjectContext:self.user.managedObjectContext];
         nfndtrial.whichUser = self.user;
-        NSLog(@"Adding NFND Trial for user %@", self.user.name );
+        NSLog(@"Adding NFND Trial for user %@", self.user.userID );
         nfndtrial.reEntries = trialInfo.reEntries;
         nfndtrial.totalTime = trialInfo.totalTime;
         nfndtrial.reTouches = trialInfo.reTouches;

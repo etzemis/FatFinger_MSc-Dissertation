@@ -28,9 +28,9 @@
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
     request.predicate = nil;        //all
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name"
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"userID"
                                                               ascending:YES
-                                                               selector:@selector(localizedStandardCompare:)]];
+                                                               selector:@selector(compare:)]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc]
                                     initWithFetchRequest:request
@@ -48,12 +48,7 @@
     
     User *user =[self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    cell.textLabel.text =[NSString stringWithFormat:@"%@ %@", user.name, user.surname];
-    cell.detailTextLabel.text = [NSString
-                                 stringWithFormat:@"Left = %@ Experience = %@ Gender = %@",
-                                 ([user.lefthanded boolValue] ? @"YES":@"NO"),
-                                 ([user.experience boolValue] ? @"YES":@"NO"),
-                                 ([user.gender boolValue] ? @"Male" : @"Female")];
+    cell.textLabel.text =[NSString stringWithFormat:@"%@", user.userID];
     
     return cell;
     
@@ -71,49 +66,22 @@
     //get the file
     
     NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *filename = [docPath stringByAppendingPathComponent:@"user.csv"];
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:filename]) {
-        NSLog(@"file wasnt there");
-        [[NSFileManager defaultManager] createFileAtPath:filename contents:nil attributes:nil];
-    }
-    else {  //exists so recreate it
-        NSError *error;
-        [[NSFileManager defaultManager] removeItemAtPath:filename error:&error];
-        if(error) {
-            NSLog(@"error at deleting file!");
-        }
-        [[NSFileManager defaultManager] createFileAtPath:filename contents:nil attributes:nil];
-    }
+ 
     
     //get the results you want to put inside
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
     request.predicate = nil;        //all
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name"
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"userID"
                                                               ascending:YES
-                                                               selector:@selector(localizedStandardCompare:)]];
+                                                               selector:@selector(compare:)]];
     NSError *error;
     NSArray * users = [self.managedObjectContext executeFetchRequest:request error:&error];
     
-    
-    
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:filename];
-    [fileHandle seekToEndOfFile];
-    NSString *userData = [NSString stringWithFormat:@"UserID, Name, Surname, Email, Gender, Age, LeftHanded, Experienced\n"];
-    [fileHandle writeData:[userData dataUsingEncoding:NSUTF8StringEncoding]];
-    int userId = 1;
+
     for (User *user in users) {
-        NSString *userData = [NSString stringWithFormat:@"%d, %@, %@, %@, %@, %@, %@, %@\n",userId, user.name,user.surname, user.email,
-                              ([user.gender boolValue] ? @"Male" : @"Female"),
-                              user.age,
-                              ([user.lefthanded boolValue] ? @"YES":@"NO"),
-                              ([user.experience boolValue] ? @"YES":@"NO")];
-        [fileHandle writeData:[userData dataUsingEncoding:NSUTF8StringEncoding]];
         // Store User Trials in a seperate File
-        [self exportTrialsforUser:user andFilename:[docPath stringByAppendingPathComponent:[NSString stringWithFormat:@"TrialsForUser%d.csv", userId]]];
-        userId++;
+        [self exportTrialsforUser:user andFilename:[docPath stringByAppendingPathComponent:[NSString stringWithFormat:@"TrialsForUser%@.csv", user.userID]]];
     }
-    [fileHandle closeFile];
     NSLog(@"info saved");
 }
 
@@ -146,6 +114,14 @@
    
 
     
+    //Save USer ID and MIN MAX Values
+    NSString *userData = [NSString stringWithFormat:@"User Information\nUser ID, Min Area Value, Max Area Value\n"];
+    [fileHandle writeData:[userData dataUsingEncoding:NSUTF8StringEncoding]];
+    userData = [NSString stringWithFormat:@"%@, %@, %@\n", user.userID, user.minArea, user.maxArea];
+    [fileHandle writeData:[userData dataUsingEncoding:NSUTF8StringEncoding]];
+    
+
+    
     // Repetition Summmary
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"RepetitionStats"];
     request.predicate = [NSPredicate predicateWithFormat:@"whichUser = %@", user];
@@ -168,10 +144,10 @@
                                                                selector:@selector(compare:)]];
     
     NSArray *fdtrials = [self.managedObjectContext executeFetchRequest:request error:nil];
-    NSString *trialData = [NSString stringWithFormat:@"FeedBack - Discrete Trials\nTrialID, N, Target, Total Time, re Entries, re Touches\n"];
+    NSString *trialData = [NSString stringWithFormat:@"FeedBack - Discrete Trials\nTrialID, Repetition ID, Raw Data, N, Target, Total Time, re Entries, re Touches\n"];
     [fileHandle writeData:[trialData dataUsingEncoding:NSUTF8StringEncoding]];
     for (FDTrial *trial in fdtrials) {
-        NSString *trialData = [NSString stringWithFormat:@"%@, %@, %@, %@, %@, %@\n", trial.trialID, trial.n, trial.target, trial.totalTime, trial.reEntries, trial.reTouches];
+        NSString *trialData = [NSString stringWithFormat:@"%@, %@, %@, %@, %@, %@, %@, %@\n", trial.trialID, trial.repetitionID, trial.rawInputValue, trial.n, trial.target, trial.totalTime, trial.reEntries, trial.reTouches];
         [fileHandle writeData:[trialData dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
@@ -183,10 +159,10 @@
                                                                selector:@selector(compare:)]];
     
     NSArray *fndtrials = [self.managedObjectContext executeFetchRequest:request error:nil];
-    trialData = [NSString stringWithFormat:@"FeedBack - Non Discrete Trials\nTrialID, N, Target, Total Time, re Entries, re Touches, Offset, Target Position\n"];
+    trialData = [NSString stringWithFormat:@"FeedBack - Non Discrete Trials\nTrialID, Repetition ID, Raw Data, N, Target, Total Time, re Entries, re Touches, Offset, Target Position\n"];
     [fileHandle writeData:[trialData dataUsingEncoding:NSUTF8StringEncoding]];
     for (FNDTrial *trial in fndtrials) {
-        trialData = [NSString stringWithFormat:@"%@, %@, %@, %@, %@, %@, %@, %@\n", trial.trialID, trial.n, trial.target, trial.totalTime, trial.reEntries, trial.reTouches, trial.offset, trial.targetPosition];
+        trialData = [NSString stringWithFormat:@"%@, %@, %@, %@, %@, %@, %@, %@, %@, %@\n", trial.trialID, trial.repetitionID, trial.rawInputValue, trial.n, trial.target, trial.totalTime, trial.reEntries, trial.reTouches, trial.offset, trial.targetPosition];
         [fileHandle writeData:[trialData dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
@@ -198,10 +174,10 @@
                                                                selector:@selector(compare:)]];
     
     NSArray *nfdtrials = [self.managedObjectContext executeFetchRequest:request error:nil];
-    trialData = [NSString stringWithFormat:@"No FeedBack - Discrete Trials\nTrialID, N, Target, Total Time, re Entries, re Touches, Hit Inside Target, Offset\n"];
+    trialData = [NSString stringWithFormat:@"No FeedBack - Discrete Trials\nTrialID, Repetition ID, Raw Data, N, Target, Total Time, re Entries, re Touches, Hit Inside Target, Offset\n"];
     [fileHandle writeData:[trialData dataUsingEncoding:NSUTF8StringEncoding]];
     for (NFDTrial *trial in nfdtrials) {
-        trialData = [NSString stringWithFormat:@"%@, %@, %@, %@, %@, %@, %@, %@\n", trial.trialID, trial.n, trial.target, trial.totalTime, trial.reEntries, trial.reTouches, trial.hitInsideTarget, trial.offset];
+        trialData = [NSString stringWithFormat:@"%@, %@, %@, %@, %@, %@, %@, %@, %@, %@\n", trial.trialID, trial.repetitionID, trial.rawInputValue, trial.n, trial.target, trial.totalTime, trial.reEntries, trial.reTouches, trial.hitInsideTarget, trial.offset];
         [fileHandle writeData:[trialData dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
@@ -213,10 +189,10 @@
                                                                selector:@selector(compare:)]];
     
     NSArray *nfndtrials = [self.managedObjectContext executeFetchRequest:request error:nil];
-    trialData = [NSString stringWithFormat:@"No FeedBack - Non Discrete Trials\nTrialID, N, Target, Total Time, re Entries, re Touches, Hit Inside Target, Offset, Target Position\n"];
+    trialData = [NSString stringWithFormat:@"No FeedBack - Non Discrete Trials\nTrialID, Repetition ID, Raw Data, N, Target, Total Time, re Entries, re Touches, Hit Inside Target, Offset, Target Position\n"];
     [fileHandle writeData:[trialData dataUsingEncoding:NSUTF8StringEncoding]];
     for (NFNDTrial *trial in nfndtrials) {
-        trialData = [NSString stringWithFormat:@"%@, %@, %@, %@, %@, %@, %@, %@, %@\n", trial.trialID, trial.n, trial.target, trial.totalTime, trial.reEntries, trial.reTouches, trial.hitInsideTarget, trial.offset, trial.targetPosition];
+        trialData = [NSString stringWithFormat:@"%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@\n", trial.trialID, trial.repetitionID, trial.rawInputValue, trial.n, trial.target, trial.totalTime, trial.reEntries, trial.reTouches, trial.hitInsideTarget, trial.offset, trial.targetPosition];
         [fileHandle writeData:[trialData dataUsingEncoding:NSUTF8StringEncoding]];
     }
     

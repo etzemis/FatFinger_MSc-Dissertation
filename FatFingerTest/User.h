@@ -2,7 +2,7 @@
 //  User.h
 //  FatFinger
 //
-//  Created by Evangelos Tzemis on 5/9/14.
+//  Created by Evangelos Tzemis on 5/10/14.
 //  Copyright (c) 2014 Evangelos Tzemis. All rights reserved.
 //
 
@@ -13,15 +13,9 @@
 
 @interface User : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * age;
-@property (nonatomic, retain) NSString * email;
-@property (nonatomic, retain) NSNumber * experience;
-@property (nonatomic, retain) NSNumber * gender;
-@property (nonatomic, retain) NSNumber * lefthanded;
 @property (nonatomic, retain) NSNumber * maxArea;
 @property (nonatomic, retain) NSNumber * minArea;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * surname;
+@property (nonatomic, retain) NSNumber * userID;
 @property (nonatomic, retain) NSSet *fdtrials;
 @property (nonatomic, retain) NSSet *fndtrials;
 @property (nonatomic, retain) NSSet *nfdtrials;
