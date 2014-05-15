@@ -95,12 +95,12 @@
 
 + (int)validRepetitions
 {
-    return 2;
+    return 3;
 }
 
 + (NSArray *)validN
 {
-    return @[@2];   //@[@2, @3, @4......]
+    return @[@2, @3, @4, @6, @8, @12, @16];
 }
 
 # pragma mark - Trial Constructors

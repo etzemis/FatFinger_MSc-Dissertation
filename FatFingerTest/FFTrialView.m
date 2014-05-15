@@ -53,7 +53,7 @@
 
 
 #define TIMES_TO_DIVIDE_EACH_CONCRETE_TARGET 100 //Each target is idvided in those segments and one is chosen randomly
-#define OFFSET_FOR_CONTINUOUS_TARGET 0.015      // How easy is to hit the continuous target
+#define OFFSET_FOR_CONTINUOUS_TARGET 0.02      // How easy is to hit the continuous target
 
 #define DELAY_UNTIL_CONFIRMING_SELECTION_WITH_FEEDBACK 1
 //#define DELAY_UNTIL_CONFIRMING_SELECTION_WITHOUT_FEEDBACK 0.5
@@ -111,7 +111,7 @@
         }
         else if (!self.hasFeedback) {
             [self.NFPastIndexes addObject:self.lastIndexPosition];
-            NSLog(@"Index With size inserted %@", self.lastIndexPosition);
+            //NSLog(@"Index With size inserted %@", self.lastIndexPosition);
             if ([self isInsideTarget:self.lastIndexPosition] && !self.isInsideTarget) self.isInsideTarget = YES;
         }
     }
@@ -147,7 +147,7 @@
         }
         else if (!self.hasFeedback) {
             [self.NFPastIndexes addObject:self.lastIndexPosition];
-            NSLog(@"Index With size inserted %@", self.lastIndexPosition);
+            //NSLog(@"Index With size inserted %@", self.lastIndexPosition);
             
             //Count re-Entries in No FeedBack
             if ([self isInsideTarget:self.lastIndexPosition] && !self.isInsideTarget) {
@@ -231,18 +231,23 @@
     self.NFWaitingForUserTapScreenToConfirmFeedBackWasSeen = YES;
     
     NSTimeInterval totalTimeOfTrial = [self.startTimeOfTrial timeIntervalSinceNow];
+    NSNumber *lastIndexBeforeTouchEnded;
+    if ([self.NFPastIndexes count] < 4) {
+        lastIndexBeforeTouchEnded = [self.NFPastIndexes valueForKeyPath:@"@max.self"];
+    }
+    else{
+        // Remove last two indexes from NFPastIndexes
+        [self.NFPastIndexes removeLastObject];
+        [self.NFPastIndexes removeLastObject];
+        // Get Last Valid Position
+        lastIndexBeforeTouchEnded = [self.NFPastIndexes lastObject];
+    }
     
-    // Remove last three indexes from NFPastIndexes
-    [self.NFPastIndexes removeLastObject];
-    [self.NFPastIndexes removeLastObject];
     
-    // Get Last Valid Position
-    
-    NSNumber *lastIndexBeforeTouchEnded = [self.NFPastIndexes lastObject];
     if (!lastIndexBeforeTouchEnded) {
         lastIndexBeforeTouchEnded = self.min;           // if nill move it to min value
     }
-    NSLog(@"Last index is  %@", lastIndexBeforeTouchEnded);
+    //NSLog(@"Last index is  %@", lastIndexBeforeTouchEnded);
     
 
     self.lastTrialInfo= [[TrialInfo alloc] init];
@@ -321,6 +326,7 @@
 {
     self.isInsideTarget = NO;  // reset it now to prevent color malfunctioning
     self.NFWaitingForUserTapScreenToConfirmFeedBackWasSeen = NO;
+    [self.NFPastIndexes removeAllObjects];      // Remove all previous Touch Events and prepare for the new Trial
     
     if (isDescrete) {       
         self.N = N;
@@ -454,6 +460,9 @@
             else if (!self.isDescrete) {
                 //Draw Continuous Target
                 [self drawContinuousTarget];
+                if(self.hasFeedback){
+                    [self drawContinuousTargetOffsetIndicators];
+                }
             }
             
             //// Draw Circle in the Center
@@ -495,6 +504,7 @@
 - (void)drawUserCurrentIndexFeedBack
 {
     UIColor* colorOFUserFeedback = [UIColor colorWithRed: 0.114 green: 0.114 blue: 1 alpha: 1];
+    
     
     CGRect ovalRectCurrentIndex = CGRectMake(22.5, 15.5, 721, 721);
     UIBezierPath* ovalPathCurrentIndex = [UIBezierPath bezierPath];
@@ -614,7 +624,6 @@
     ovalPathForTargets.lineWidth = 3;
     [ovalPathForTargets stroke];
     
-    [self drawContinuousTargetOffsetIndicators];
     
     
 }

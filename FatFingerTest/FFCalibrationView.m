@@ -50,31 +50,32 @@
     NSArray *touch = [touches allObjects];
     UITouch *index = [touch firstObject];
     NSNumber *indexval = [index valueForKey:@"_pathMajorRadius"];
-    NSLog(@"%.2f", [indexval floatValue]);
+    //NSLog(@"%.2f", [indexval floatValue]);
     if ([indexval floatValue] > [self.maxContactSize floatValue]) {
         self.maxContactSize = indexval;
     }
     if ([indexval floatValue] < [self.minContactSize floatValue]) {
         self.minContactSize = indexval;
     }
-    NSLog(@"Now only %lu fingers our touching the screen", (unsigned long)[touch count]);
-
+    // NSLog(@"Now only %lu fingers our touching the screen", (unsigned long)[touch count]);
 
 }
+
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     NSArray *touch = [touches allObjects];
     UITouch *index = [touch firstObject];
     NSNumber *indexval = [index valueForKey:@"_pathMajorRadius"];
-    NSLog(@"%.2f", [indexval floatValue]);
+    //NSLog(@"%.2f", [indexval floatValue]);
     if ([indexval floatValue] > [self.maxContactSize floatValue]) {
         self.maxContactSize = indexval;
     }
     if ([indexval floatValue] < [self.minContactSize floatValue]) {
         self.minContactSize = indexval;
     }
-    NSLog(@"Now only %lu fingers our touching the screen", (unsigned long)[touch count]);
+   // NSLog(@"Now only %lu fingers our touching the screen", (unsigned long)[touch count]);
     
 }
+
 
 
 - (void)drawRect:(CGRect)rect

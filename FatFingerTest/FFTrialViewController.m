@@ -101,6 +101,9 @@
 
 - (IBAction)startNewTrial:(id)sender
 {
+    //Se The Button title in each iteration...Should be done only in the first but still its fine here
+    [self.startNextTrialButton setTitle:@"NEXT TRIAL" forState:UIControlStateNormal];
+    
     if (self.nextTrial){        //it has next trial
         //Enable User Interaction in the Backround View
         self.tview.userInteractionEnabled = YES;
@@ -118,6 +121,12 @@
 //        for (BlockInfo* bi in self.BlockInfos) {
 //            NSLog(@"Repetition %@  has average time = %f  and average target Reentries %f", bi.id, [[bi getAverageCompletionTime] floatValue], [[bi getAverageReEntries] floatValue]);
 //        }
+        [[[UIAlertView alloc] initWithTitle:@"Experiment Finished"
+                                    message:@"Thank you for your participation"
+                                   delegate:nil
+                          cancelButtonTitle:nil
+                          otherButtonTitles:@"OK", nil] show];
+        
         self.finishButton.enabled = TRUE;
         self.tview.shouldAnimateEndOfExperiment = YES;
         [self.tview setNeedsDisplay];
@@ -282,6 +291,7 @@
         // add targets and actions
         [self.startNextTrialButton addTarget:self action:@selector(startNewTrial:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
     return _startNextTrialButton;
 }
 

@@ -35,7 +35,7 @@
     NSArray *touch = [touches allObjects];
     UITouch *index = [touch firstObject];
     NSNumber *indexval = [index valueForKey:@"_pathMajorRadius"];
-    NSLog(@"%.2f", [indexval floatValue]);
+    //NSLog(@"%.2f", [indexval floatValue]);
     NSNumber *pr = @(([indexval floatValue] - [_min floatValue])/ ([_max floatValue]-[_min floatValue]));
     self.currentSize = @([pr floatValue]*360);
     
@@ -45,7 +45,7 @@
     NSArray *touch = [touches allObjects];
     UITouch *index = [touch firstObject];
     NSNumber *indexval = [index valueForKey:@"_pathMajorRadius"];
-    NSLog(@"%.2f", [indexval floatValue]);
+    //NSLog(@"%.2f", [indexval floatValue]);
     NSNumber *pr = @( ([indexval floatValue] - [_min floatValue])/ ([_max floatValue]-[_min floatValue]));
     self.currentSize = @([pr floatValue]*360);
     
