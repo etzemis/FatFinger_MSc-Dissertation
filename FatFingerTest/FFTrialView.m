@@ -232,6 +232,7 @@
     
     NSTimeInterval totalTimeOfTrial = [self.startTimeOfTrial timeIntervalSinceNow];
     NSNumber *lastIndexBeforeTouchEnded;
+
     if ([self.NFPastIndexes count] < 4) {
         lastIndexBeforeTouchEnded = [self.NFPastIndexes valueForKeyPath:@"@max.self"];
     }
@@ -243,12 +244,10 @@
         lastIndexBeforeTouchEnded = [self.NFPastIndexes lastObject];
     }
     
-    
-    if (!lastIndexBeforeTouchEnded) {
+    // Normalization of Input Value... Check what we actualy want!!
+    if ([lastIndexBeforeTouchEnded floatValue] < [self.min floatValue]) {
         lastIndexBeforeTouchEnded = self.min;           // if nill move it to min value
     }
-    //NSLog(@"Last index is  %@", lastIndexBeforeTouchEnded);
-    
 
     self.lastTrialInfo= [[TrialInfo alloc] init];
     //ID is filled in superView
@@ -277,7 +276,7 @@
     
     
     //Set The Animation for the User FeedBack
-    self.NFShowFinalSelectedRangeAfterComplitingNFTrial = TRUE;    // value set back to No in dispatch
+    self.NFShowFinalSelectedRangeAfterComplitingNFTrial = YES;    // value set back to No in dispatch
     self.NFFinalIndexToShow  = @((([lastIndexBeforeTouchEnded floatValue] - [_min floatValue])/ ([_max floatValue]-[_min floatValue])) * 360);
 
     [self setNeedsDisplay];  //Show the last index
@@ -444,6 +443,7 @@
                 [self drawUserCurrentIndexFeedBack];
             }
             else if (!self.hasFeedback) {
+               // [self drawUserCurrentIndexFeedBackForTesting];
                 // Place Code Here
                 if(self.NFShowFinalSelectedRangeAfterComplitingNFTrial){
                     //// Draw the User Input Circle (white)
@@ -524,10 +524,33 @@
     [ovalPathCurrentIndex stroke];
 }
 
+//- (void)drawUserCurrentIndexFeedBackForTesting
+//{
+//    UIColor* colorOFUserFeedback = [UIColor redColor];
+//    
+//    
+//    CGRect ovalRectCurrentIndex = CGRectMake(22.5, 15.5, 721, 721);
+//    UIBezierPath* ovalPathCurrentIndex = [UIBezierPath bezierPath];
+//    [ovalPathCurrentIndex addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRectCurrentIndex), CGRectGetMidY(ovalRectCurrentIndex)) radius: CGRectGetWidth(ovalRectCurrentIndex) / 2 startAngle: [self.lastIndexPositionInRad intValue] * M_PI/180 endAngle: [self.lastIndexPositionInRad intValue] * M_PI/180 clockwise: YES];
+//    [ovalPathCurrentIndex addLineToPoint: CGPointMake(CGRectGetMidX(ovalRectCurrentIndex), CGRectGetMidY(ovalRectCurrentIndex))];
+//    [ovalPathCurrentIndex closePath];
+//    
+//    [colorOFUserFeedback setFill];
+//    [ovalPathCurrentIndex fill];
+//    [colorOFUserFeedback setStroke];
+//    if ([self.lastIndexPositionInRad integerValue] == 0) {
+//        ovalPathCurrentIndex.lineWidth = 6;
+//    }
+//    else{
+//        ovalPathCurrentIndex.lineWidth = 2;
+//    }
+//    [ovalPathCurrentIndex stroke];
+//}
+
 //Only in NF Trials-- Called at the very End
 - (void)drawUserIndexFinalFeedBack
 {
-    UIColor* colorOFUserFeedback = [UIColor colorWithRed: 0.114 green: 0.114 blue: 1 alpha: 1];
+    UIColor* colorOFUserFeedback = [UIColor colorWithRed: 0.114 green: 0.114 blue: 1 alpha: 0.7];
     
     CGRect ovalRectCurrentIndex = CGRectMake(22.5, 15.5, 721, 721);
     UIBezierPath* ovalPathCurrentIndex = [UIBezierPath bezierPath];
@@ -541,14 +564,7 @@
     
     [colorOFUserFeedback setFill];
     [ovalPathCurrentIndex fill];
-    [colorOFUserFeedback setStroke];
-    if ([self.lastIndexPositionInRad integerValue] == 0) {
-        ovalPathCurrentIndex.lineWidth = 6;
-    }
-    else{
-        ovalPathCurrentIndex.lineWidth = 2;
-    }
-    [ovalPathCurrentIndex stroke];
+
 }
 
 - (void)drawSegmentedTargets
