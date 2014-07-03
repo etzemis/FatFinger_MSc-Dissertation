@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FatFingerTest/FFTrialView.m"
-            timestampString = "425832576.424654"
+            timestampString = "426066913.197738"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "700"
-            endingLineNumber = "700"
+            startingLineNumber = "704"
+            endingLineNumber = "704"
             landmarkName = "-drawTouchRegionRectangle"
             landmarkType = "5">
          </BreakpointContent>

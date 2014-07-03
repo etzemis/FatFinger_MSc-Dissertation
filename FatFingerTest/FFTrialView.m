@@ -564,6 +564,10 @@
     
     [colorOFUserFeedback setFill];
     [ovalPathCurrentIndex fill];
+    
+    [colorOFUserFeedback setStroke];
+    ovalPathCurrentIndex.lineWidth = 4;
+    [ovalPathCurrentIndex stroke];
 
 }
 
